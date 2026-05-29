@@ -53,6 +53,7 @@ body {
 }
 /* NAGŁÓWEK */
 .app-header {
+	position: relative;
 	background-color: var(--white-light);
 	padding: var(--space-m) 0 0;
 	text-align: center;
@@ -136,6 +137,22 @@ body {
 	padding: 35px var(--space-l);
 	background-color: var(--white-white);
 }
+/* ZEGAR */
+.header-datetime {
+	position: absolute;
+	top: var(--space-s);
+	right: var(--space-m);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 2px;
+	font-family: Consolas, monospace;
+	font-size: var(--font-size-normal);
+	color: var(--color-normal);
+}
+.header-datetime span {
+	line-height: 1.0;
+}
 /* RESPONSYWNOŚĆ */
 @media (max-width: 768px) {
 	:root {
@@ -161,5 +178,10 @@ body {
 	}
 	.info-grid {
 		grid-template-columns: 1fr;
+	}
+	.header-datetime {
+		position: static;
+		align-items: center;
+		margin-bottom: var(--space-s);
 	}
 }

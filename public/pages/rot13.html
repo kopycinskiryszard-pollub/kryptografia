@@ -1,29 +1,48 @@
 <section class="page-section">
 	<h2>ROT13</h2>
 	<div class="app-box">
-		<div class="form-group">
-			<label for="rot13-text">Tekst:</label>
-			<textarea id="rot13-text"></textarea>
+		<div class="app-section">
+			<h3>Transformacja tekstu</h3>
+			<div class="form-group">
+				<label for="rot13-text">Tekst wejściowy:</label>
+				<textarea id="rot13-text"
+						  placeholder="Wpisz tekst do transformacji ROT13..."></textarea>
+			</div>
+			<div class="button-row">
+				<button id="rot13-transform"
+						type="button">Wykonaj ROT13
+				</button>
+				<button id="rot13-copy-result"
+						type="button">Kopiuj wynik
+				</button>
+				<button id="rot13-clear"
+						type="button">Wyczyść
+				</button>
+			</div>
 		</div>
-		<div class="form-group">
-			<label for="rot13-shift">Przesunięcie:</label>
-			<input id="rot13-shift"
-				   type="number"
-				   value="13">
-		</div>
-		<div class="button-row">
-			<button id="rot13-encrypt"
-					type="button">Szyfruj
-			</button>
-			<button id="rot13-decrypt"
-					type="button">Deszyfruj
-			</button>
-			<button id="rot13-clear"
-					type="button">Wyczyść
-			</button>
+		<div class="app-section">
+			<h3>Obsługa pliku .txt</h3>
+			<div class="form-group">
+				<label for="rot13-file">Wybierz plik tekstowy:</label>
+				<input accept=".txt,text/plain"
+					   id="rot13-file"
+					   type="file">
+			</div>
+			<div class="button-row">
+				<button id="rot13-load-file"
+						type="button">Wczytaj plik
+				</button>
+				<button id="rot13-download-result"
+						type="button">Pobierz wynik jako plik
+				</button>
+			</div>
+			<p class="message message-info"
+			   id="rot13-file-info">
+				Nie wybrano pliku.
+			</p>
 		</div>
 		<div class="result-box">
-			<p>Wynik: <strong id="rot13-result">-</strong></p>
+			<p>Wynik ROT13: <strong id="rot13-result">-</strong></p>
 		</div>
 	</div>
 </section>

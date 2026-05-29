@@ -22,6 +22,11 @@ const pageInitializers = {
 	profile: () => window.initProfilePage()
 };
 
+/**
+ *
+ * @param pageName
+ * @returns {Promise<void>}
+ */
 async function loadPage(pageName) {
 	const normalizedPageName = pages[pageName] ? pageName : 'home';
 	const pagePath = pages[normalizedPageName];
@@ -42,6 +47,10 @@ async function loadPage(pageName) {
 	}
 }
 
+/**
+ *
+ * @param pageName
+ */
 function initializePage(pageName) {
 	const initializer = pageInitializers[pageName];
 	if (typeof initializer === 'function') {
@@ -49,6 +58,10 @@ function initializePage(pageName) {
 	}
 }
 
+/**
+ *
+ * @param pageName
+ */
 function setActiveButton(pageName) {
 	navButtons.forEach((button) => {
 		button.classList.toggle('active', button.dataset.page === pageName);
@@ -60,6 +73,10 @@ function setActiveButton(pageName) {
 	}
 }
 
+/**
+ *
+ * @param pageName
+ */
 function updateHash(pageName) {
 	const currentHash = window.location.hash.replace('#', '');
 	if (currentHash !== pageName) {
@@ -67,6 +84,9 @@ function updateHash(pageName) {
 	}
 }
 
+/**
+ *
+ */
 function renderLoadError() {
 	app.innerHTML = `
 		<section class="page-section">
@@ -76,6 +96,12 @@ function renderLoadError() {
 	`;
 }
 
+/**
+ *
+ * @param element
+ * @param text
+ * @param type
+ */
 function showMessage(element, text, type = 'info') {
 	if (!element) {
 		return;
@@ -84,12 +110,46 @@ function showMessage(element, text, type = 'info') {
 	element.className = `message message-${type}`;
 }
 
+/**
+ *
+ */
+function initHeaderDateTime() {
+	updateHeaderDateTime();
+	setInterval(updateHeaderDateTime, 1000);
+}
+
+/**
+ *
+ */
+function updateHeaderDateTime() {
+	const dateElement = document.getElementById('current-date');
+	const timeElement = document.getElementById('current-time');
+	if (!dateElement || !timeElement) {
+		return;
+	}
+	const now = new Date();
+	const day = String(now.getDate())
+	.padStart(2, '0');
+	const month = String(now.getMonth() + 1)
+	.padStart(2, '0');
+	const year = String(now.getFullYear());
+	const hours = String(now.getHours())
+	.padStart(2, '0');
+	const minutes = String(now.getMinutes())
+	.padStart(2, '0');
+	const seconds = String(now.getSeconds())
+	.padStart(2, '0');
+	dateElement.textContent = `${day}-${month}-${year}`;
+	timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
 navButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		void loadPage(button.dataset.page);
 	});
 });
 window.addEventListener('DOMContentLoaded', () => {
+	initHeaderDateTime();
 	const pageFromHash = window.location.hash.replace('#', '');
 	void loadPage(pages[pageFromHash] ? pageFromHash : 'home');
 });

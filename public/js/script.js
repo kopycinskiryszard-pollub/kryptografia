@@ -15,6 +15,8 @@ buttons.forEach(button => {
 		button.classList.add('active');
 		// Wyświetlenie odpowiedniej sekcji
 		const target = button.getAttribute('data-tab');
-		document.getElementById(target).classList.add('active');
+		document.getElementById(target)
+				.classList
+				.add('active');
 	});
 });

@@ -8,6 +8,7 @@
 	--dark-light: #444;
 	--dark-normal: #222;
 	--dark-dark: #000;
+	--font-size-small: 11px;
 }
 /* RESET */
 * {
@@ -27,17 +28,17 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: var(--white-white);
-	border: 1px solid var(--dark-dark);
+	border: 1px solid var(--color-dark);
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 /* NAGŁÓWEK */
 header {
-	background-color: var(--dark-normal);
+	background-color: var(--white-light);
 	padding: 16px 0 0;
 	text-align: center;
 }
 header h1 {
-	color: var(--color-light);
+	color: var(--color-normal);
 	margin-bottom: 16px;
 	font-size: 30px;
 	letter-spacing: 1px;
@@ -45,10 +46,11 @@ header h1 {
 /* NAWIGACJA */
 .navbar {
 	display: flex;
+	justify-content: center;
 }
 .tab-button {
 	background-color: transparent;
-	color: var(--white-white);
+	color: var(--dark-dark);
 	border: 1px solid var(--color-normal);
 	border-bottom: none;
 	padding: 8px 16px;
@@ -71,7 +73,6 @@ header h1 {
 /* MAIN */
 main {
 	padding: 35px 30px;
-	border-top: 4px solid var(--color-normal);
 	background-color: var(--white-white);
 }
 .tab-content {

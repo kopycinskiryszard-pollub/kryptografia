@@ -1,0 +1,224 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0"
+		  name="viewport">
+	<title>Aplikacje Kryptograficzne</title>
+	<link href="css/style.css"
+		  rel="stylesheet">
+	<link href="css/home.css"
+		  rel="stylesheet">
+	<link href="css/apps.css"
+		  rel="stylesheet">
+</head>
+<body>
+<div class="page-wrapper">
+	<header>
+		<h1>Podstawy Kryptografii</h1>
+		<nav class="navbar">
+			<button class="tab-button active"
+					data-tab="home">Strona główna
+			</button>
+			<button class="tab-button"
+					data-tab="entropy">Entropia
+			</button>
+			<button class="tab-button"
+					data-tab="crc">CRC
+			</button>
+			<button class="tab-button"
+					data-tab="permutations">Permutacje
+			</button>
+			<button class="tab-button"
+					data-tab="cryptograms">Szyfrogramy
+			</button>
+			<button class="tab-button"
+					data-tab="rot13">ROT13
+			</button>
+		</nav>
+	</header>
+	<main>
+		<section class="tab-content active"
+				 id="home">
+			<h2>Strona główna</h2>
+			<div class="app-box">
+				<div class="info-card">
+					<h3>Opis przedmiotu</h3>
+					<p>
+						Strona została przygotowana na potrzeby przedmiotu
+						<strong>Podstawy kryptografii</strong>. Jej celem jest prezentacja rozwiązań do zadań
+						laboratoryjnych.
+					</p>
+				</div>
+				<div class="info-grid">
+					<div class="info-card">
+						<p>Autor: <strong>Ryszard Kopyciński</strong></p>
+					</div>
+					<div class="info-card">
+						<p>Grupa: <strong>CB1N</strong></p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- <<<<<< ENTROPIA >>>>>> -->
+		<section class="tab-content"
+				 id="entropy">
+			<h2>Entropia</h2>
+			<div class="app-box">
+				<label for="entropy-text">Tekst do analizy:</label>
+				<textarea id="entropy-text"
+						  rows="8"></textarea>
+				<button id="entropy-calculate">Oblicz entropię</button>
+				<div class="result-box">
+					<p>Liczba znaków: <strong id="entropy-length">0</strong></p>
+					<p>Liczba różnych znaków: <strong id="entropy-symbols">0</strong></p>
+					<p>Entropia Hartleya: <strong id="entropy-hartley">0</strong> bit/znak</p>
+					<p>Entropia Shannona: <strong id="entropy-shannon">0</strong> bit/znak</p>
+				</div>
+			</div>
+		</section>
+		<!-- <<<<<< CRC >>>>>> -->
+		<section class="tab-content"
+				 id="crc">
+			<h2>CRC</h2>
+			<div class="app-box">
+				<label for="crc-data">Ciąg bitów:</label>
+				<input id="crc-data"
+					   placeholder="np. 11010011101110"
+					   type="text">
+				<label for="crc-divisor-length">Długość dzielnika:</label>
+				<input id="crc-divisor-length"
+					   min="2"
+					   type="number"
+					   value="5">
+				<button id="crc-random-divisor">Losuj dzielnik</button>
+				<label for="crc-divisor">Dzielnik CRC:</label>
+				<input id="crc-divisor"
+					   placeholder="np. 1011"
+					   type="text">
+				<label for="crc-checksum">Własna suma CRC do weryfikacji:</label>
+				<input id="crc-checksum"
+					   placeholder="opcjonalnie"
+					   type="text">
+				<button id="crc-calculate">Oblicz CRC</button>
+				<button id="crc-verify">Zweryfikuj CRC</button>
+				<div class="result-box">
+					<p>Rozszerzone dane: <strong id="crc-extended">-</strong></p>
+					<p>Suma CRC: <strong id="crc-result">-</strong></p>
+					<p>Ciąg do wysłania: <strong id="crc-frame">-</strong></p>
+					<p>Weryfikacja: <strong id="crc-verification">-</strong></p>
+				</div>
+			</div>
+		</section>
+		<!-- <<<<<< PERMUTACJE >>>>>> -->
+		<section class="tab-content"
+				 id="permutations">
+			<h2>Permutacje</h2>
+			<div class="app-box">
+				<div class="app-section">
+					<label for="perm-size">Liczba elementów:</label>
+					<input id="perm-size"
+						   min="2"
+						   type="number"
+						   value="5">
+				</div>
+				<div class="button-row">
+					<button id="perm-generate">Generuj permutację</button>
+				</div>
+				<div class="result-box">
+					<p>Permutacja:</p>
+					<strong id="perm-result">-</strong>
+					<p>Permutacja odwrotna:</p>
+					<strong id="perm-inverse">-</strong>
+				</div>
+			</div>
+		</section>
+		<!-- <<<<<< SZYFROGRAMY >>>>>> -->
+		<section class="tab-content"
+				 id="cryptograms">
+			<h2>Szyfrogramy</h2>
+			<div class="app-box">
+				<div class="app-section">
+					<label for="crypto-plain-text">Tekst jawny:</label>
+					<textarea id="crypto-plain-text">Podstawy kryptografii</textarea>
+				</div>
+				<div class="app-section">
+					<label for="caesar-key">Klucz Cezara:</label>
+					<input id="caesar-key"
+						   type="number"
+						   value="3">
+				</div>
+				<div class="app-section">
+					<label for="transposition-size">Długość bloku szyfru przestawieniowego:</label>
+					<input id="transposition-size"
+						   min="2"
+						   type="number"
+						   value="5">
+				</div>
+				<div class="button-row">
+					<button id="generate-ciphers">
+						Generuj szyfrogramy
+					</button>
+				</div>
+				<div class="result-box">
+					<p>Szyfr Cezara:</p>
+					<strong id="caesar-result">-</strong>
+					<p>Permutacja:</p>
+					<strong id="transposition-permutation">-</strong>
+					<p>Szyfr przestawieniowy:</p>
+					<strong id="transposition-result">-</strong>
+					<p>AES:</p>
+					<strong id="aes-result">-</strong>
+					<p>Klucz AES:</p>
+					<strong id="aes-key-result">-</strong>
+					<p>IV AES:</p>
+					<strong id="aes-iv-result">-</strong>
+					<p>RSA:</p>
+					<strong id="rsa-result">-</strong>
+					<p>Klucz publiczny RSA:</p>
+					<strong id="rsa-public-result">-</strong>
+					<p>Klucz prywatny RSA:</p>
+					<strong id="rsa-private-result">-</strong>
+				</div>
+				<button id="generate-files-for-ataki-lab">Generuj pliki wynikowe do ...</button>
+			</div>
+		</section>
+		<!-- <<<<<< ROT13 >>>>>> -->
+		<section class="tab-content"
+				 id="rot13">
+			<h2>ROT13 - w budowie...</h2>
+			<div class="app-box">
+				<label for="rot13-input">Tekst:</label>
+				<textarea id="rot13-input"
+						  rows="8"></textarea>
+				<label for="rot13-shift">Przesunięcie:</label>
+				<input id="rot13-shift"
+					   max="25"
+					   min="1"
+					   type="number"
+					   value="13">
+				<div class="button-row">
+					<button id="rot13-encrypt">Szyfruj</button>
+					<button id="rot13-decrypt">Deszyfruj</button>
+					<button id="rot13-clear">Wyczyść</button>
+				</div>
+				<div class="result-box">
+					<p>Wynik:</p>
+					<strong id="rot13-result">-</strong>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
+<script src="js/script.js"></script>
+<script src="js/entropy/entropy.js"></script>
+<script src="js/crc/crc.js"></script>
+<script src="js/permutations/permutacje.js"></script>
+<script src="js/attacks/cezarCipher.js"></script>
+<script src="js/attacks/transpositionCipher.js"></script>
+<script src="js/attacks/aesCipher.js"></script>
+<script src="js/attacks/rsaCipher.js"></script>
+<script src="js/attacks/cryptograms.js"></script>
+</body>
+</html>

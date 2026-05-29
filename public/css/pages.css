@@ -1,0 +1,122 @@
+/* pages.css */
+/* WSPÓLNY LAYOUT PODSTRON I APLIKACJI */
+.page-section {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-m);
+}
+.page-section h2 {
+	color: var(--color-dark);
+	margin-bottom: var(--space-s);
+	padding-bottom: var(--space-s);
+	border-bottom: 2px solid var(--color-light);
+}
+.page-section h3 {
+	color: var(--color-dark);
+	margin-bottom: var(--space-s);
+	font-size: var(--font-size-large);
+}
+.page-section p {
+	color: var(--dark-light);
+	line-height: 1.7;
+	margin-bottom: 12px;
+}
+/* KONTENER APLIKACJI */
+.app-box {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-s);
+}
+/* SEKCJE W PODSTRONACH */
+.app-section {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-s);
+	padding: var(--space-m);
+	background-color: var(--white-white);
+	border: 1px solid var(--dark-dark);
+	border-left: 5px solid var(--color-normal);
+	border-radius: var(--corner-s);
+}
+/* PROSTY BLOK TREŚCI */
+.content-box {
+	padding: var(--space-m);
+	background-color: var(--white-white);
+	border: 1px solid var(--dark-dark);
+	border-left: 5px solid var(--color-normal);
+	border-radius: var(--corner-s);
+}
+/* PRZYCISKI W RZĘDZIE */
+.button-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+/* WYNIKI */
+.result-box,
+.results {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 10px 16px;
+	padding: 18px;
+	background-color: #f7f7f7;
+	border: 1px solid var(--dark-dark);
+	border-left: 5px solid var(--color-normal);
+	border-radius: var(--corner-s);
+}
+/* ELEMENTY WYNIKÓW */
+.result-box p,
+.results p {
+	display: contents;
+}
+.result-box strong,
+.results strong,
+.result-box span,
+.results span {
+	color: var(--color-dark);
+	font-family: Consolas, monospace;
+	font-weight: bold;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	padding: 2px 4px;
+	border: 1px solid var(--color-light);
+	line-height: 1.2;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+/* PRE DLA DŁUGICH WYNIKÓW */
+.result-box pre,
+.results pre,
+.output-box {
+	color: var(--color-dark);
+	font-family: Consolas, monospace;
+	font-weight: bold;
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	padding: var(--space-s);
+	border: 1px solid var(--color-light);
+	background-color: var(--white-white);
+	line-height: 1.4;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+/* KOMUNIKAT ŁADOWANIA / BŁĘDU */
+.loading-message,
+.error-message {
+	padding: var(--space-m);
+	border: 1px solid var(--dark-dark);
+	border-left: 5px solid var(--color-normal);
+	background-color: #f7f7f7;
+	color: var(--dark-light);
+}
+/* RESPONSYWNOŚĆ */
+@media (max-width: 1000px) {
+	.result-box,
+	.results {
+		grid-template-columns: 1fr;
+	}
+}

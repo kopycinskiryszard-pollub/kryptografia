@@ -1,0 +1,42 @@
+<section class="page-section">
+	<h2>Szyfrogramy</h2>
+	<div class="form-group">
+		<label for="plain-text">Tekst jawny:</label>
+		<textarea id="plain-text"
+				  rows="4">Podstawy kryptografii</textarea>
+	</div>
+	<div class="form-group">
+		<label for="caesar-key">Klucz Cezara:</label>
+		<input id="caesar-key"
+			   type="number">
+	</div>
+	<div class="form-group">
+		<label for="block-length">Długość bloku szyfru przestawieniowego:</label>
+		<input id="block-length"
+			   min="2"
+			   type="number">
+	</div>
+	<button id="generate-ciphers"
+			type="button">Generuj szyfrogramy
+	</button>
+	<div class="results">
+		<p>Szyfr Cezara:</p>
+		<pre id="caesar-result">-</pre>
+		<p>Permutacja:</p>
+		<pre id="cipher-permutation-result">-</pre>
+		<p>Szyfr przestawieniowy:</p>
+		<pre id="transposition-result">-</pre>
+		<p>AES:</p>
+		<pre id="aes-result">-</pre>
+		<p>Klucz AES:</p>
+		<pre id="aes-key-result">-</pre>
+		<p>IV AES:</p>
+		<pre id="aes-iv-result">-</pre>
+		<p>RSA:</p>
+		<pre id="rsa-result">-</pre>
+		<p>Klucz publiczny RSA:</p>
+		<pre id="rsa-public-key-result">-</pre>
+		<p>Klucz prywatny RSA:</p>
+		<pre id="rsa-private-key-result">-</pre>
+	</div>
+</section>

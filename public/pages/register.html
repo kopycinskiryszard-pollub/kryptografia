@@ -1,0 +1,43 @@
+<section class="page-section auth-page">
+	<h2>Rejestracja</h2>
+	<form class="auth-form"
+		  id="register-form"
+		  novalidate>
+		<div class="form-group">
+			<label for="register-username">Nazwa użytkownika</label>
+			<input
+					autocomplete="username"
+					id="register-username"
+					name="username"
+					required
+					type="text"
+			>
+			<small>3-50 znaków: litery, cyfry oraz znak _.</small>
+		</div>
+		<div class="form-group">
+			<label for="register-email">Adres e-mail</label>
+			<input
+					autocomplete="email"
+					id="register-email"
+					name="email"
+					required
+					type="email"
+			>
+		</div>
+		<div class="form-group">
+			<label for="register-password">Hasło</label>
+			<input
+					autocomplete="new-password"
+					id="register-password"
+					name="password"
+					required
+					type="password"
+			>
+			<small>8-72 znaki, minimum jedna mała litera, jedna wielka litera i jedna cyfra.</small>
+		</div>
+		<button type="submit">Zarejestruj</button>
+	</form>
+	<div aria-live="polite"
+		 class="message"
+		 id="register-message"></div>
+</section>

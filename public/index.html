@@ -6,15 +6,52 @@
 	<meta content="width=device-width, initial-scale=1.0"
 		  name="viewport">
 	<title>Aplikacje Kryptograficzne</title>
-	<link href="css/style.css"
+	<link href="/css/home.css"
 		  rel="stylesheet">
-	<link href="css/home.css"
+	<link href="/css/style.css"
 		  rel="stylesheet">
-	<link href="css/apps.css"
+	<link href="/css/pages.css"
+		  rel="stylesheet">
+	<link href="/css/forms.css"
 		  rel="stylesheet">
 </head>
 <body>
-<div class="page-wrapper">
+<header class="app-header">
+	<h1>Podstawy Kryptografii</h1>
+	<nav aria-label="Główna nawigacja"
+		 class="app-nav">
+		<button class="nav-button active"
+				data-page="home">Strona główna
+		</button>
+		<button class="nav-button"
+				data-page="entropy">Entropia
+		</button>
+		<button class="nav-button"
+				data-page="crc">CRC
+		</button>
+		<button class="nav-button"
+				data-page="permutations">Permutacje
+		</button>
+		<button class="nav-button"
+				data-page="ciphers">Szyfrogramy
+		</button>
+		<button class="nav-button"
+				data-page="rot13">ROT13
+		</button>
+		<button class="nav-button"
+				data-page="login">Logowanie
+		</button>
+		<button class="nav-button"
+				data-page="register">Rejestracja
+		</button>
+	</nav>
+</header>
+<main class="app-main"
+	  id="app">
+	<p>Ładowanie widoku...</p>
+</main>
+<script src="/js/ui.js"></script>
+<!-- <div class="page-wrapper">
 	<header>
 		<h1>Podstawy Kryptografii</h1>
 		<nav class="navbar">
@@ -61,7 +98,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- <<<<<< ENTROPIA >>>>>> -->
+		&lt;!&ndash; <<<<<< ENTROPIA >>>>>> &ndash;&gt;
 		<section class="tab-content"
 				 id="entropy">
 			<h2>Entropia</h2>
@@ -78,7 +115,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- <<<<<< CRC >>>>>> -->
+		&lt;!&ndash; <<<<<< CRC >>>>>> &ndash;&gt;
 		<section class="tab-content"
 				 id="crc">
 			<h2>CRC</h2>
@@ -111,7 +148,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- <<<<<< PERMUTACJE >>>>>> -->
+		&lt;!&ndash; <<<<<< PERMUTACJE >>>>>> &ndash;&gt;
 		<section class="tab-content"
 				 id="permutations">
 			<h2>Permutacje</h2>
@@ -134,7 +171,7 @@
 				</div>
 			</div>
 		</section>
-		<!-- <<<<<< SZYFROGRAMY >>>>>> -->
+		&lt;!&ndash; <<<<<< SZYFROGRAMY >>>>>> &ndash;&gt;
 		<section class="tab-content"
 				 id="cryptograms">
 			<h2>Szyfrogramy</h2>
@@ -184,7 +221,7 @@
 				<button id="generate-files-for-ataki-lab">Generuj pliki wynikowe do ...</button>
 			</div>
 		</section>
-		<!-- <<<<<< ROT13 >>>>>> -->
+		&lt;!&ndash; <<<<<< ROT13 >>>>>> &ndash;&gt;
 		<section class="tab-content"
 				 id="rot13">
 			<h2>ROT13 - w budowie...</h2>
@@ -211,7 +248,7 @@
 		</section>
 	</main>
 </div>
-<script src="js/script.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/entropy/entropy.js"></script>
 <script src="js/crc/crc.js"></script>
 <script src="js/permutations/permutacje.js"></script>
@@ -219,6 +256,6 @@
 <script src="js/attacks/transpositionCipher.js"></script>
 <script src="js/attacks/aesCipher.js"></script>
 <script src="js/attacks/rsaCipher.js"></script>
-<script src="js/attacks/cryptograms.js"></script>
+<script src="js/attacks/cryptograms.js"></script> -->
 </body>
 </html>

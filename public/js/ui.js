@@ -11,13 +11,13 @@ const pages = {
 	register: '/pages/register.html'
 };
 const pageInitializers = {
-	entropy: 'initEntropyPage',
-	crc: 'initCrcPage',
-	permutations: 'initPermutationsPage',
-	ciphers: 'initCryptogramsPage',
-	rot13: 'initRot13Page',
-	login: 'initLoginPage',
-	register: 'initRegisterPage'
+	entropy: () => window.initEntropyPage?.(),
+	crc: () => window.initCrcPage?.(),
+	permutations: () => window.initPermutationsPage?.(),
+	ciphers: () => window.initCryptogramsPage?.(),
+	rot13: () => window.initRot13Page?.(),
+	login: () => window.initLoginPage?.(),
+	register: () => window.initRegisterPage?.()
 };
 
 async function loadPage(pageName) {
@@ -26,7 +26,9 @@ async function loadPage(pageName) {
 	try {
 		const response = await fetch(pagePath);
 		if (!response.ok) {
-			throw new Error(`Nie udało się załadować strony: ${pagePath}`);
+			console.error(`Nie udało się załadować strony: ${pagePath}`);
+			renderLoadError();
+			return;
 		}
 		app.innerHTML = await response.text();
 		setActiveButton(normalizedPageName);
@@ -34,21 +36,12 @@ async function loadPage(pageName) {
 		initializePage(normalizedPageName);
 	} catch (error) {
 		console.error(error);
-		app.innerHTML = `
-			<section class="page-section">
-				<h2>Błąd ładowania strony</h2>
-				<p>Nie udało się wczytać wybranej podstrony.</p>
-			</section>
-		`;
+		renderLoadError();
 	}
 }
 
 function initializePage(pageName) {
-	const initializerName = pageInitializers[pageName];
-	if (!initializerName) {
-		return;
-	}
-	const initializer = window[initializerName];
+	const initializer = pageInitializers[pageName];
 	if (typeof initializer === 'function') {
 		initializer();
 	}
@@ -72,6 +65,15 @@ function updateHash(pageName) {
 	}
 }
 
+function renderLoadError() {
+	app.innerHTML = `
+		<section class="page-section">
+			<h2>Błąd ładowania strony</h2>
+			<p>Nie udało się wczytać wybranej podstrony.</p>
+		</section>
+	`;
+}
+
 function showMessage(element, text, type = 'info') {
 	if (!element) {
 		return;
@@ -82,14 +84,14 @@ function showMessage(element, text, type = 'info') {
 
 navButtons.forEach((button) => {
 	button.addEventListener('click', () => {
-		loadPage(button.dataset.page);
+		void loadPage(button.dataset.page);
 	});
 });
 window.addEventListener('DOMContentLoaded', () => {
 	const pageFromHash = window.location.hash.replace('#', '');
-	loadPage(pages[pageFromHash] ? pageFromHash : 'home');
+	void loadPage(pages[pageFromHash] ? pageFromHash : 'home');
 });
 window.addEventListener('hashchange', () => {
 	const pageFromHash = window.location.hash.replace('#', '');
-	loadPage(pages[pageFromHash] ? pageFromHash : 'home');
+	void loadPage(pages[pageFromHash] ? pageFromHash : 'home');
 });

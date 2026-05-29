@@ -47,7 +47,7 @@ async function login({
 		error.statusCode = 403;
 		throw error;
 	}
-	const passwordIsValid = await passwordService.verifyPassword(password, user.isActive);
+	const passwordIsValid = await passwordService.verifyPassword(password, user.passwordHash);
 	if (!passwordIsValid) {
 		const error = new Error('Nieprawidłowy login lub hasło.');
 		error.statusCode = 401;

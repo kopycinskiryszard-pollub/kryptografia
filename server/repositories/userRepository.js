@@ -28,9 +28,9 @@ async function findByUsernameOrEmail(login) {
         SELECT u.id,
                u.username,
                u.email,
-               u.is_active,
-               c.password_hash,
-               c.hash_algorithm
+               u.is_active      AS isActive,
+               c.password_hash  AS passwordHash,
+               c.hash_algorithm AS hashAlgorithm
         FROM users u
                  INNER JOIN credentials c ON c.user_id = u.id
         WHERE u.username = ?

@@ -9,7 +9,8 @@ const pages = {
 	rot13: '/pages/rot13.html',
 	login: '/pages/login.html',
 	register: '/pages/register.html',
-	profile: '/pages/profile.html'
+	profile: '/pages/profile.html',
+	morse: '/pages/morse.html',
 };
 const pageInitializers = {
 	entropy: () => window.initEntropyPage?.(),
@@ -17,6 +18,7 @@ const pageInitializers = {
 	permutations: () => window.initPermutationsPage?.(),
 	ciphers: () => window.initCryptogramsPage?.(),
 	rot13: () => window.initRot13Page?.(),
+	morse: () => window.initMorsePage?.(),
 	login: () => window.initLoginPage?.(),
 	register: () => window.initRegisterPage?.(),
 	profile: () => window.initProfilePage()
@@ -66,7 +68,7 @@ function setActiveButton(pageName) {
 	navButtons.forEach((button) => {
 		button.classList.toggle('active', button.dataset.page === pageName);
 	});
-	const applicationPages = ['entropy', 'crc', 'permutations', 'ciphers', 'rot13'];
+	const applicationPages = ['entropy', 'crc', 'permutations', 'ciphers', 'rot13', 'morse'];
 	const applicationsButton = document.querySelector('.dropdown-toggle');
 	if (applicationsButton) {
 		applicationsButton.classList.toggle('active', applicationPages.includes(pageName));
@@ -91,7 +93,7 @@ function renderLoadError() {
 	app.innerHTML = `
 		<section class="page-section">
 			<h2>Błąd ładowania strony</h2>
-			<p>Nie udało się wczytać wybranej podstrony.</p>
+			<p>Nie udało się wczytać wybranej strony.</p>
 		</section>
 	`;
 }

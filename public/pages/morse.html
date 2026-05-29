@@ -1,0 +1,63 @@
+<section class="page-section">
+	<h2>Kod Morse'a</h2>
+	<div class="app-box">
+		<div class="app-section">
+			<h3>Szyfrowanie tekstu na kod Morse'a</h3>
+			<div class="form-group">
+				<label for="morse-encrypt-text">Tekst wejściowy:</label>
+				<textarea
+						id="morse-encrypt-text"
+						placeholder="Wpisz tekst do zamiany na kod Morse'a..."
+				></textarea>
+				<small>
+					Dozwolone: litery, polskie znaki, cyfry, spacje oraz znaki:
+					, . ? / - ( )
+				</small>
+			</div>
+			<div class="button-row">
+				<button id="morse-encrypt-button"
+						type="button">Szyfruj
+				</button>
+				<button id="morse-encrypt-clear"
+						type="button">Wyczyść
+				</button>
+			</div>
+			<div class="result-box">
+				<p>Wynik Morse'a: <strong id="morse-encrypt-result">-</strong></p>
+			</div>
+			<p class="message message-info"
+			   id="morse-encrypt-message">
+				Wpisz tekst i uruchom szyfrowanie.
+			</p>
+		</div>
+		<div class="app-section">
+			<h3>Deszyfrowanie kodu Morse'a</h3>
+			<div class="form-group">
+				<label for="morse-decrypt-text">Kod Morse'a:</label>
+				<textarea
+						id="morse-decrypt-text"
+						placeholder="Wpisz kod Morse'a, np. ... --- ..."
+				></textarea>
+				<small>
+					Dozwolone: kropka, myślnik, ukośnik oraz spacje. Litery oddzielaj
+					spacją, a słowa ukośnikiem, np. ... --- ... / .- -...
+				</small>
+			</div>
+			<div class="button-row">
+				<button id="morse-decrypt-button"
+						type="button">Deszyfruj
+				</button>
+				<button id="morse-decrypt-clear"
+						type="button">Wyczyść
+				</button>
+			</div>
+			<div class="result-box">
+				<p>Tekst odszyfrowany: <strong id="morse-decrypt-result">-</strong></p>
+			</div>
+			<p class="message message-info"
+			   id="morse-decrypt-message">
+				Wpisz kod Morse'a i uruchom deszyfrowanie.
+			</p>
+		</div>
+	</div>
+</section>

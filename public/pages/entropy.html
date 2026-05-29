@@ -1,17 +1,24 @@
-<section class="page-section">
+<section
+		class="page-section"
+		data-init="initEntropyPage"
+		data-scripts="/js-lab/entropy/entropy.js"
+>
 	<h2>Entropia</h2>
-	<div class="form-group">
-		<label for="entropy-text">Tekst do analizy:</label>
-		<textarea id="entropy-text"
-				  rows="5"></textarea>
-	</div>
-	<button id="entropy-button"
-			type="button">Oblicz entropię
-	</button>
-	<div class="results">
-		<p>Liczba znaków: <span id="characters-count">0</span></p>
-		<p>Liczba różnych znaków: <span id="unique-characters-count">0</span></p>
-		<p>Entropia Hartleya: <span id="hartley-entropy">0</span> bit/znak</p>
-		<p>Entropia Shannona: <span id="shannon-entropy">0</span> bit/znak</p>
+	<div class="app-box">
+		<div class="form-group">
+			<label for="entropy-text">Tekst do analizy:</label>
+			<textarea id="entropy-text"></textarea>
+		</div>
+		<div class="button-row">
+			<button id="entropy-calculate"
+					type="button">Oblicz entropię
+			</button>
+		</div>
+		<div class="result-box">
+			<p>Liczba znaków: <strong id="entropy-length">0</strong></p>
+			<p>Liczba różnych znaków: <strong id="entropy-symbols">0</strong></p>
+			<p>Entropia Hartleya: <strong id="entropy-hartley">0</strong></p>
+			<p>Entropia Shannona: <strong id="entropy-shannon">0</strong></p>
+		</div>
 	</div>
 </section>

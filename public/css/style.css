@@ -28,8 +28,3 @@
 .info-card strong {
 	color: var(--dark-dark);
 }
-@media (max-width: 1000px) {
-	.info-grid {
-		grid-template-columns: 1fr;
-	}
-}

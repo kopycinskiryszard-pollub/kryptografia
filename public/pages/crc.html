@@ -1,39 +1,49 @@
-<section class="page-section">
+<section
+		class="page-section"
+		data-init="initCrcPage"
+		data-scripts="/js-lab/crc/crc.js"
+>
 	<h2>CRC</h2>
-	<div class="form-group">
-		<label for="crc-data">Ciąg bitów:</label>
-		<input id="crc-data"
-			   type="text">
-	</div>
-	<div class="form-group">
-		<label for="crc-divisor-length">Długość dzielnika:</label>
-		<input id="crc-divisor-length"
-			   min="2"
-			   type="number">
-	</div>
-	<button id="generate-crc-divisor"
-			type="button">Losuj dzielnik
-	</button>
-	<div class="form-group">
-		<label for="crc-divisor">Dzielnik CRC:</label>
-		<input id="crc-divisor"
-			   type="text">
-	</div>
-	<div class="form-group">
-		<label for="crc-custom">Własna suma CRC do weryfikacji:</label>
-		<input id="crc-custom"
-			   type="text">
-	</div>
-	<button id="calculate-crc"
-			type="button">Oblicz CRC
-	</button>
-	<button id="verify-crc"
-			type="button">Zweryfikuj CRC
-	</button>
-	<div class="results">
-		<p>Rozszerzone dane: <span id="crc-extended">-</span></p>
-		<p>Suma CRC: <span id="crc-result">-</span></p>
-		<p>Ciąg do wysłania: <span id="crc-transmission">-</span></p>
-		<p>Weryfikacja: <span id="crc-verification">-</span></p>
+	<div class="app-box">
+		<div class="form-group">
+			<label for="crc-data">Ciąg bitów:</label>
+			<input id="crc-data"
+				   type="text">
+		</div>
+		<div class="form-group">
+			<label for="crc-divisor-length">Długość dzielnika:</label>
+			<input id="crc-divisor-length"
+				   min="2"
+				   type="number">
+		</div>
+		<div class="button-row">
+			<button id="crc-random-divisor"
+					type="button">Losuj dzielnik
+			</button>
+		</div>
+		<div class="form-group">
+			<label for="crc-divisor">Dzielnik CRC:</label>
+			<input id="crc-divisor"
+				   type="text">
+		</div>
+		<div class="form-group">
+			<label for="crc-checksum">Własna suma CRC do weryfikacji:</label>
+			<input id="crc-checksum"
+				   type="text">
+		</div>
+		<div class="button-row">
+			<button id="crc-calculate"
+					type="button">Oblicz CRC
+			</button>
+			<button id="crc-verify"
+					type="button">Zweryfikuj CRC
+			</button>
+		</div>
+		<div class="result-box">
+			<p>Rozszerzone dane: <strong id="crc-extended">-</strong></p>
+			<p>Suma CRC: <strong id="crc-result">-</strong></p>
+			<p>Ciąg do wysłania: <strong id="crc-frame">-</strong></p>
+			<p>Weryfikacja: <strong id="crc-verification">-</strong></p>
+		</div>
 	</div>
 </section>

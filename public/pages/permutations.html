@@ -1,18 +1,24 @@
-<section class="page-section">
+<section
+		class="page-section"
+		data-init="initPermutationsPage"
+		data-scripts="/js-lab/permutations/permutacje.js"
+>
 	<h2>Permutacje</h2>
-	<div class="form-group">
-		<label for="permutation-size">Liczba elementów:</label>
-		<input id="permutation-size"
-			   min="1"
-			   type="number">
-	</div>
-	<button id="generate-permutation"
-			type="button">Generuj permutację
-	</button>
-	<div class="results">
-		<p>Permutacja:</p>
-		<pre id="permutation-result">-</pre>
-		<p>Permutacja odwrotna:</p>
-		<pre id="inverse-permutation-result">-</pre>
+	<div class="app-box">
+		<div class="form-group">
+			<label for="perm-size">Liczba elementów:</label>
+			<input id="perm-size"
+				   min="2"
+				   type="number">
+		</div>
+		<div class="button-row">
+			<button id="perm-generate"
+					type="button">Generuj permutację
+			</button>
+		</div>
+		<div class="result-box">
+			<p>Permutacja: <strong id="perm-result">-</strong></p>
+			<p>Permutacja odwrotna: <strong id="perm-inverse">-</strong></p>
+		</div>
 	</div>
 </section>

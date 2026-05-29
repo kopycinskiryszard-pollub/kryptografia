@@ -11,20 +11,22 @@
 	--dark-normal: #222;
 	--dark-dark: #000;
 	/* Fonty */
-	--font-size-small: 11px;
-	--font-size-normal: 15px;
+	--font-size-small: 12px;
+	--font-size-normal: 14px;
 	--font-size-medium: 16px;
 	--font-size-large: 19px;
 	--font-size-title: 30px;
 	/* Odstępy */
+	--space-xs: 2px;
 	--space-s: 6px;
-	--space-m: 12px;
+	--space-m: 10px;
 	--space-l: 16px;
 	/* Narożniki */
 	--corner-s: 4px;
 	--corner-m: 8px;
 	/* Layout */
-	--page-width: 960px;
+	--page-max-width: 1200px;
+	--page-min-width: 640px;
 }
 /* RESET */
 * {
@@ -37,13 +39,13 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: var(--white-light);
 	color: var(--dark-dark);
-	width: var(--page-width);
+	max-width: var(--page-max-width);
 	margin-left: auto;
 	margin-right: auto;
 }
 /* GŁÓWNY KONTENER STRONY */
 .page-wrapper {
-	width: var(--page-width);
+	width: auto;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: var(--white-white);
@@ -67,7 +69,7 @@ body {
 .app-nav {
 	display: flex;
 	justify-content: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 }
 .nav-button {
 	background-color: transparent;
@@ -79,6 +81,7 @@ body {
 	font-size: var(--font-size-medium);
 	transition: background-color 0.5s,
 	color 0.25s;
+	text-wrap: nowrap;
 }
 .nav-button + .nav-button {
 	border-left: none;
@@ -97,19 +100,24 @@ body {
 	background-color: var(--white-white);
 }
 /* RESPONSYWNOŚĆ */
-@media (max-width: 1000px) {
+@media (max-width: var(--page-max-width)) {
+	body {
+		font-size: smaller;
+	}
 	.page-wrapper {
 		width: 100%;
 	}
 	.app-main {
 		padding: var(--space-m);
+		font-size: smaller;
 	}
 	.app-nav {
-		align-items: stretch;
+		font-size: var(--font-size-small);
 	}
 	.nav-button {
-		flex: 1 1 auto;
 		border-bottom: 1px solid var(--color-normal);
+		padding: var(--space-xs) var(--space-s);
+		font-size: var(--font-size-small);
 	}
 	.nav-button + .nav-button {
 		border-left: 1px solid var(--color-normal);

@@ -113,10 +113,11 @@
 	background-color: #f7f7f7;
 	color: var(--dark-light);
 }
-/* RESPONSYWNOŚĆ */
-@media (max-width: 1000px) {
+/*
+!* RESPONSYWNOŚĆ *!
+@media (max-width: var(--page-width)) {
 	.result-box,
 	.results {
 		grid-template-columns: 1fr;
 	}
-}
+}*/

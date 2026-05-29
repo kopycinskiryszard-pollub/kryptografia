@@ -1,42 +1,47 @@
-<section class="page-section">
+<section
+		class="page-section"
+		data-init="initCryptogramsPage"
+		data-scripts="
+		/js-lab/permutations/permutacje.js,
+		/js-lab/attacks/cezarCipher.js,
+		/js-lab/attacks/transpositionCipher.js,
+		/js-lab/attacks/aesCipher.js,
+		/js-lab/attacks/rsaCipher.js,
+		/js-lab/attacks/cryptograms.js">
 	<h2>Szyfrogramy</h2>
-	<div class="form-group">
-		<label for="plain-text">Tekst jawny:</label>
-		<textarea id="plain-text"
-				  rows="4">Podstawy kryptografii</textarea>
-	</div>
-	<div class="form-group">
-		<label for="caesar-key">Klucz Cezara:</label>
-		<input id="caesar-key"
-			   type="number">
-	</div>
-	<div class="form-group">
-		<label for="block-length">Długość bloku szyfru przestawieniowego:</label>
-		<input id="block-length"
-			   min="2"
-			   type="number">
-	</div>
-	<button id="generate-ciphers"
-			type="button">Generuj szyfrogramy
-	</button>
-	<div class="results">
-		<p>Szyfr Cezara:</p>
-		<pre id="caesar-result">-</pre>
-		<p>Permutacja:</p>
-		<pre id="cipher-permutation-result">-</pre>
-		<p>Szyfr przestawieniowy:</p>
-		<pre id="transposition-result">-</pre>
-		<p>AES:</p>
-		<pre id="aes-result">-</pre>
-		<p>Klucz AES:</p>
-		<pre id="aes-key-result">-</pre>
-		<p>IV AES:</p>
-		<pre id="aes-iv-result">-</pre>
-		<p>RSA:</p>
-		<pre id="rsa-result">-</pre>
-		<p>Klucz publiczny RSA:</p>
-		<pre id="rsa-public-key-result">-</pre>
-		<p>Klucz prywatny RSA:</p>
-		<pre id="rsa-private-key-result">-</pre>
+	<div class="app-box">
+		<div class="form-group">
+			<label for="crypto-plain-text">Tekst jawny:</label>
+			<textarea id="crypto-plain-text">Podstawy kryptografii</textarea>
+		</div>
+		<div class="form-group">
+			<label for="caesar-key">Klucz Cezara:</label>
+			<input id="caesar-key"
+				   type="number"
+				   value="3">
+		</div>
+		<div class="form-group">
+			<label for="transposition-size">Długość bloku szyfru przestawieniowego:</label>
+			<input id="transposition-size"
+				   min="2"
+				   type="number"
+				   value="4">
+		</div>
+		<div class="button-row">
+			<button id="generate-ciphers"
+					type="button">Generuj szyfrogramy
+			</button>
+		</div>
+		<div class="result-box">
+			<p>Szyfr Cezara: <strong id="caesar-result">-</strong></p>
+			<p>Permutacja: <strong id="transposition-permutation">-</strong></p>
+			<p>Szyfr przestawieniowy: <strong id="transposition-result">-</strong></p>
+			<p>AES: <strong id="aes-result">-</strong></p>
+			<p>Klucz AES: <strong id="aes-key-result">-</strong></p>
+			<p>IV AES: <strong id="aes-iv-result">-</strong></p>
+			<p>RSA: <strong id="rsa-result">-</strong></p>
+			<p>Klucz publiczny RSA: <strong id="rsa-public-result">-</strong></p>
+			<p>Klucz prywatny RSA: <strong id="rsa-private-result">-</strong></p>
+		</div>
 	</div>
 </section>

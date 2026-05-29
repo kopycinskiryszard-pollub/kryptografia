@@ -138,9 +138,4 @@ td {
 	.auth-page {
 		max-width: 100%;
 	}
-	button,
-	.app-box button,
-	.auth-form button {
-		width: 100%;
-	}
 }

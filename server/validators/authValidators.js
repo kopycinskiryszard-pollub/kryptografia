@@ -16,13 +16,13 @@ function validateRegisterData(data) {
 	.trim();
 	const password = String(data.password || '');
 	if (!authRegex.username.test(username)) {
-		errors.push('Nazwa użytkownika musi mieć 3-50 znaków i może zawierać tylko litery, cyfry oraz znak _.');
+		errors.push('Nazwa użytkownika musi mieć 4-20 znaków i może zawierać tylko litery, cyfry oraz znak _.');
 	}
 	if (!authRegex.email.test(email)) {
 		errors.push('Podano nieprawidłowy adres e-mail.');
 	}
 	if (!authRegex.password.test(password)) {
-		errors.push('Hasło musi mieć 8-72 znaki, minimum jedną małą literę, jedną wielką literę i jedną cyfrę.');
+		errors.push('Hasło musi mieć 8-72 znaki, minimum jedną małą literę, jedną wielką literę, jedną cyfrę i jeden znak specjalny @#$%^&*()=+-_? .');
 	}
 	return errors;
 }

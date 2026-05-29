@@ -1,5 +1,5 @@
 /* forms.css */
-/* FORMULARZE, INPUTY, PRZYCISKI, TABELE */
+/* FORMULARZE, INPUT, PRZYCISKI, TABELE */
 /* LABEL */
 label,
 .app-box label,
@@ -134,8 +134,14 @@ td {
 	color: var(--dark-light);
 }
 /* RESPONSYWNOŚĆ */
-@media (max-width: 1000px) {
+@media (max-width: 768px) {
 	.auth-page {
 		max-width: 100%;
+	}
+	button,
+	.app-box button,
+	.auth-form button {
+		padding: var(--space-xs) var(--space-s);
+		font-size: var(--font-size-normal);
 	}
 }

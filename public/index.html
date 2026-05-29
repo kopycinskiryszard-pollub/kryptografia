@@ -1,11 +1,10 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 	<meta charset="UTF-8">
+	<title>Podstawy Kryptografii</title>
 	<meta content="width=device-width, initial-scale=1.0"
 		  name="viewport">
-	<title>Aplikacje Kryptograficzne</title>
 	<link href="/css/home.css"
 		  rel="stylesheet">
 	<link href="/css/style.css"
@@ -16,40 +15,76 @@
 		  rel="stylesheet">
 </head>
 <body>
-<header class="app-header">
-	<h1>Podstawy Kryptografii</h1>
-	<nav aria-label="Główna nawigacja"
-		 class="app-nav">
-		<button class="nav-button active"
-				data-page="home">Strona główna
-		</button>
-		<button class="nav-button"
-				data-page="entropy">Entropia
-		</button>
-		<button class="nav-button"
-				data-page="crc">CRC
-		</button>
-		<button class="nav-button"
-				data-page="permutations">Permutacje
-		</button>
-		<button class="nav-button"
-				data-page="ciphers">Szyfrogramy
-		</button>
-		<button class="nav-button"
-				data-page="rot13">ROT13
-		</button>
-		<button class="nav-button"
-				data-page="login">Logowanie
-		</button>
-		<button class="nav-button"
-				data-page="register">Rejestracja
-		</button>
-	</nav>
-</header>
-<main class="app-main"
-	  id="app">
-	<p>Ładowanie widoku...</p>
-</main>
+<div class="page-wrapper">
+	<header class="app-header">
+		<h1>Podstawy Kryptografii</h1>
+		<nav aria-label="Główna nawigacja"
+			 class="app-nav">
+			<div class="nav-left">
+				<button class="nav-button active"
+						data-page="home"
+						type="button">
+					Strona główna
+				</button>
+				<div class="nav-dropdown">
+					<button class="nav-button dropdown-toggle"
+							type="button">
+						Aplikacje
+					</button>
+					<div class="dropdown-menu">
+						<button data-page="entropy"
+								type="button">Entropia
+						</button>
+						<button data-page="crc"
+								type="button">CRC
+						</button>
+						<button data-page="permutations"
+								type="button">Permutacje
+						</button>
+						<button data-page="ciphers"
+								type="button">Szyfrogramy
+						</button>
+						<button data-page="rot13"
+								type="button">ROT13
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="nav-right">
+				<button class="nav-button"
+						data-page="login"
+						type="button">
+					Logowanie
+				</button>
+				<button class="nav-button"
+						data-page="register"
+						type="button">
+					Rejestracja
+				</button>
+			</div>
+		</nav>
+	</header>
+	<main class="app-main"
+		  id="app">
+		<p>Ładowanie widoku...</p>
+	</main>
+</div>
+<!-- Skrypty API / auth -->
+<script src="/js/api/authApi.js"></script>
+<script src="/js/validators/authValidators.js"></script>
+<script src="/js/auth/login.js"></script>
+<script src="/js/auth/register.js"></script>
+<!-- Skrypty laboratoryjne -->
+<script src="/js-lab/entropy/entropy.js"></script>
+<script src="/js-lab/crc/crc.js"></script>
+<script src="/js-lab/permutations/permutacje.js"></script>
+<script src="/js-lab/attacks/cezarCipher.js"></script>
+<script src="/js-lab/attacks/transpositionCipher.js"></script>
+<script src="/js-lab/attacks/aesCipher.js"></script>
+<script src="/js-lab/attacks/rsaCipher.js"></script>
+<script src="/js-lab/attacks/cryptograms.js"></script>
+<script src="/js-lab/rot13/rot13.js"></script>
+<!-- Główna obsługa UI -->
 <script src="/js/ui.js"></script>
 </body>
 </html>

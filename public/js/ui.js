@@ -1,5 +1,5 @@
 const app = document.getElementById('app');
-const navButtons = document.querySelectorAll('.nav-button');
+const navButtons = document.querySelectorAll('[data-page]');
 const pages = {
 	home: '/pages/home.html',
 	entropy: '/pages/entropy.html',
@@ -10,27 +10,28 @@ const pages = {
 	login: '/pages/login.html',
 	register: '/pages/register.html'
 };
-const pageScripts = {
-	entropy: ['/js-lab/entropy/entropy.js'],
-	crc: ['/js-lab/crc/crc.js'],
-	permutations: ['/js-lab/permutations/permutacje.js'],
-	ciphers: ['/js-lab/attacks/cezarCipher.js', '/js-lab/attacks/transpositionCipher.js', '/js-lab/attacks/aesCipher.js', '/js-lab/attacks/rsaCipher.js',
-			  '/js-lab/attacks/cryptograms.js'],
-	rot13: ['/js-lab/rot13/rot13.js']
+const pageInitializers = {
+	entropy: 'initEntropyPage',
+	crc: 'initCrcPage',
+	permutations: 'initPermutationsPage',
+	ciphers: 'initCryptogramsPage',
+	rot13: 'initRot13Page',
+	login: 'initLoginPage',
+	register: 'initRegisterPage'
 };
 
 async function loadPage(pageName) {
-	const pagePath = pages[pageName] || pages.home;
+	const normalizedPageName = pages[pageName] ? pageName : 'home';
+	const pagePath = pages[normalizedPageName];
 	try {
 		const response = await fetch(pagePath);
 		if (!response.ok) {
 			throw new Error(`Nie udało się załadować strony: ${pagePath}`);
 		}
-		const html = await response.text();
-		app.innerHTML = html;
-		setActiveButton(pageName);
-		updateHash(pageName);
-		await initializePage(pageName);
+		app.innerHTML = await response.text();
+		setActiveButton(normalizedPageName);
+		updateHash(normalizedPageName);
+		initializePage(normalizedPageName);
 	} catch (error) {
 		console.error(error);
 		app.innerHTML = `
@@ -42,113 +43,46 @@ async function loadPage(pageName) {
 	}
 }
 
+function initializePage(pageName) {
+	const initializerName = pageInitializers[pageName];
+	if (!initializerName) {
+		return;
+	}
+	const initializer = window[initializerName];
+	if (typeof initializer === 'function') {
+		initializer();
+	}
+}
+
 function setActiveButton(pageName) {
 	navButtons.forEach((button) => {
-		const isActive = button.dataset.page === pageName;
-		button.classList.toggle('active', isActive);
+		button.classList.toggle('active', button.dataset.page === pageName);
 	});
+	const applicationPages = ['entropy', 'crc', 'permutations', 'ciphers', 'rot13'];
+	const applicationsButton = document.querySelector('.dropdown-toggle');
+	if (applicationsButton) {
+		applicationsButton.classList.toggle('active', applicationPages.includes(pageName));
+	}
 }
 
 function updateHash(pageName) {
-	if (window.location.hash.replace('#', '') !== pageName) {
+	const currentHash = window.location.hash.replace('#', '');
+	if (currentHash !== pageName) {
 		window.location.hash = pageName;
 	}
 }
 
-async function initializePage(pageName) {
-	const pageRoot = app.querySelector('[data-scripts]');
-	if (pageRoot) {
-		const scripts = pageRoot.dataset.scripts
-								.split(',')
-								.map((script) => script.trim())
-								.filter(Boolean);
-		for (const script of scripts) {
-			await loadScriptOnce(script);
-		}
-		const initFunctionName = pageRoot.dataset.init;
-		if (initFunctionName && typeof window[initFunctionName] === 'function') {
-			window[initFunctionName]();
-		}
-	}
-	switch (pageName) {
-		case 'login':
-			await loadScriptOnce('/js/api/authApi.js');
-			await loadScriptOnce('/js/validators/authValidators.js');
-			await loadScriptOnce('/js/auth/login.js');
-			if (typeof initLoginPage === 'function') {
-				initLoginPage();
-			}
-			break;
-		case 'register':
-			await loadScriptOnce('/js/api/authApi.js');
-			await loadScriptOnce('/js/validators/authValidators.js');
-			await loadScriptOnce('/js/auth/register.js');
-			if (typeof initRegisterPage === 'function') {
-				initRegisterPage();
-			}
-			break;
-		default:
-			break;
-	}
-}
-
-function loadScriptOnce(src) {
-	return new Promise((resolve, reject) => {
-		const existingScript = document.querySelector(`script[src="${src}"]`);
-		if (existingScript) {
-			if (existingScript.dataset.loaded === 'true') {
-				resolve();
-				return;
-			}
-			existingScript.addEventListener('load', resolve, {once: true});
-			existingScript.addEventListener('error', reject, {once: true});
-			return;
-		}
-		const script = document.createElement('script');
-		script.src = src;
-		script.onload = () => {
-			script.dataset.loaded = 'true';
-			resolve();
-		};
-		script.onerror = () => {
-			reject(new Error(`Nie udało się załadować skryptu: ${src}`));
-		};
-		document.body.appendChild(script);
-	});
-}
-
-async function runPageScripts(pageName) {
-	const scripts = pageScripts[pageName] || [];
-	if (scripts.length === 0) {
+function showMessage(element, text, type = 'info') {
+	if (!element) {
 		return;
 	}
-	const sourceCodes = [];
-	for (const scriptPath of scripts) {
-		const response = await fetch(scriptPath);
-		if (!response.ok) {
-			throw new Error(`Nie udało się załadować skryptu: ${scriptPath}`);
-		}
-		sourceCodes.push(await response.text());
-	}
-	const pageCode = sourceCodes.join('\n\n');
-	/*
-	 Skrypty laboratoryjne są wykonywane po wstawieniu HTML do <main>.
-	 Kod uruchamiamy w lokalnym zakresie funkcji, żeby uniknąć konfliktów
-	 ponownej deklaracji const przy powrocie na tę samą podstronę.
-	 */
-	const executePageCode = new Function(pageCode);
-	executePageCode();
-}
-
-function showMessage(element, text, type = 'info') {
 	element.innerHTML = text;
 	element.className = `message message-${type}`;
 }
 
 navButtons.forEach((button) => {
 	button.addEventListener('click', () => {
-		const pageName = button.dataset.page;
-		loadPage(pageName);
+		loadPage(button.dataset.page);
 	});
 });
 window.addEventListener('DOMContentLoaded', () => {

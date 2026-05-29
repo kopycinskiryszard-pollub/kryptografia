@@ -1,7 +1,7 @@
 const authRegex = {
-	username: /^[a-zA-Z0-9_]{3,50}$/,
-	email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-	password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,72}$/
+	username: /^[a-zA-Z0-9_]{4,20}$/,
+	email: /^[a-zA-Z0-9](?:[a-zA-Z0-9._%+-]{0,62}[a-zA-Z0-9])?@[a-zA-Z0-9](?:[a-zA-Z0-9.-]{0,251}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/,
+	password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@#$%^&*()=+-_?]).{8,72}$/
 };
 
 function validateRegisterForm({
@@ -11,13 +11,13 @@ function validateRegisterForm({
 }) {
 	const errors = [];
 	if (!authRegex.username.test(username)) {
-		errors.push('Nazwa użytkownika musi mieć 3-50 znaków i może zawierać tylko litery, cyfry oraz znak _.');
+		errors.push('Nazwa użytkownika musi mieć 4-20 znaków i może zawierać tylko litery, cyfry oraz znak _.');
 	}
 	if (!authRegex.email.test(email)) {
 		errors.push('Podano nieprawidłowy adres e-mail.');
 	}
 	if (!authRegex.password.test(password)) {
-		errors.push('Hasło musi mieć 8-72 znaki, minimum jedną małą literę, jedną wielką literę i jedną cyfrę.');
+		errors.push('Hasło musi mieć 8-72 znaki, minimum jedną małą literę, jedną wielką literę, jedną cyfrę i jeden znak specjalny @#$%^&*()=+-_? .');
 	}
 	return errors;
 }

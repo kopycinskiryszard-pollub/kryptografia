@@ -1,7 +1,6 @@
 /* home.css */
 /* ZMIENNE I GŁÓWNY LAYOUT APLIKACJI */
 :root {
-	/* Kolory */
 	--color-light: #F00;
 	--color-normal: #A00;
 	--color-dark: #500;
@@ -10,23 +9,20 @@
 	--dark-light: #444;
 	--dark-normal: #222;
 	--dark-dark: #000;
-	/* Fonty */
-	--font-size-small: 12px;
+	--page-max-width: 960px;
+	--page-min-width: 480px;
+	--font-size-step: 2px;
+	--font-size-small: 10px;
 	--font-size-normal: 14px;
 	--font-size-medium: 16px;
-	--font-size-large: 19px;
-	--font-size-title: 30px;
-	/* Odstępy */
+	--font-size-large: 18px;
+	--font-size-title: 24px;
 	--space-xs: 2px;
 	--space-s: 6px;
-	--space-m: 10px;
-	--space-l: 16px;
-	/* Narożniki */
+	--space-m: 12px;
+	--space-l: 24px;
 	--corner-s: 4px;
 	--corner-m: 8px;
-	/* Layout */
-	--page-max-width: 1200px;
-	--page-min-width: 640px;
 }
 /* RESET */
 * {
@@ -40,18 +36,20 @@ body {
 	background-color: var(--white-light);
 	color: var(--dark-dark);
 	max-width: var(--page-max-width);
+	min-width: var(--page-min-width);
 	margin-left: auto;
 	margin-right: auto;
 }
 /* GŁÓWNY KONTENER STRONY */
 .page-wrapper {
 	width: auto;
+	max-width: var(--page-max-width);
+	min-width: var(--page-min-width);
 	margin-left: auto;
 	margin-right: auto;
 	background-color: var(--white-white);
 	border: 1px solid var(--color-dark);
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
-	min-height: 100vh;
 }
 /* NAGŁÓWEK */
 .app-header {
@@ -68,8 +66,47 @@ body {
 /* NAWIGACJA */
 .app-nav {
 	display: flex;
-	justify-content: center;
-	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: stretch;
+	flex-wrap: wrap;
+}
+.nav-left,
+.nav-right {
+	display: flex;
+	align-items: stretch;
+}
+.nav-dropdown {
+	position: relative;
+	display: flex;
+}
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 180px;
+	background-color: var(--white-white);
+	border: 1px solid var(--color-normal);
+	z-index: 10;
+}
+.nav-dropdown:hover .dropdown-menu {
+	display: flex;
+	flex-direction: column;
+}
+.dropdown-menu button {
+	background-color: var(--white-white);
+	color: var(--dark-dark);
+	border: none;
+	border-bottom: 1px solid var(--white-light);
+	padding: var(--space-s) var(--space-m);
+	text-align: left;
+	cursor: pointer;
+	font-size: var(--font-size-medium);
+}
+.dropdown-menu button:hover,
+.dropdown-menu button.active {
+	background-color: var(--color-dark);
+	color: var(--white-white);
 }
 .nav-button {
 	background-color: transparent;
@@ -100,26 +137,29 @@ body {
 	background-color: var(--white-white);
 }
 /* RESPONSYWNOŚĆ */
-@media (max-width: var(--page-max-width)) {
-	body {
-		font-size: smaller;
+@media (max-width: 768px) {
+	:root {
+		--font-size-small: calc(11px - var(--font-size-step));
+		--font-size-normal: calc(15px - var(--font-size-step));
+		--font-size-medium: calc(16px - var(--font-size-step));
+		--font-size-large: calc(19px - var(--font-size-step));
+		--font-size-title: calc(30px - var(--font-size-step));
 	}
-	.page-wrapper {
-		width: 100%;
+	body {
+		font-size: var(--font-size-normal);
+	}
+	.nav-button {
+		padding: var(--space-xs) var(--space-s);
+		font-size: var(--font-size-medium);
 	}
 	.app-main {
 		padding: var(--space-m);
-		font-size: smaller;
 	}
-	.app-nav {
-		font-size: var(--font-size-small);
+	.result-box,
+	.results {
+		grid-template-columns: 1fr;
 	}
-	.nav-button {
-		border-bottom: 1px solid var(--color-normal);
-		padding: var(--space-xs) var(--space-s);
-		font-size: var(--font-size-small);
-	}
-	.nav-button + .nav-button {
-		border-left: 1px solid var(--color-normal);
+	.info-grid {
+		grid-template-columns: 1fr;
 	}
 }

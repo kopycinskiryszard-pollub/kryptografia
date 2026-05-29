@@ -1,57 +1,91 @@
-function transformRot(text, shift) {
-	const lowercaseAlphabet = 'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż';
-	const uppercaseAlphabet = 'AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ';
-	const alphabetLength = lowercaseAlphabet.length;
-	const normalizedShift = (
-								(
-									shift % alphabetLength
-								) + alphabetLength
-							) % alphabetLength;
-	let result = '';
-	for (const char of text) {
-		let index = lowercaseAlphabet.indexOf(char);
-		if (index !== -1) {
-			result +=
-				lowercaseAlphabet[(
-									  index + normalizedShift
-								  ) % alphabetLength];
-			continue;
-		}
-		index = uppercaseAlphabet.indexOf(char);
-		if (index !== -1) {
-			result +=
-				uppercaseAlphabet[(
-									  index + normalizedShift
-								  ) % alphabetLength];
-			continue;
-		}
-		result += char;
-	}
-	return result;
+function isBinary(value) {
+	return /^[01]+$/.test(value);
 }
 
-function initRot13Page() {
-	const textInput = document.getElementById('rot13-text');
-	const shiftInput = document.getElementById('rot13-shift');
-	const encryptButton = document.getElementById('rot13-encrypt');
-	const decryptButton = document.getElementById('rot13-decrypt');
-	const clearButton = document.getElementById('rot13-clear');
-	const resultBox = document.getElementById('rot13-result');
-	if (!textInput || !shiftInput || !encryptButton || !decryptButton || !clearButton || !resultBox) {
+function calculateCRC(data, divisor, checksum = null) {
+	const crcLength = divisor.length - 1;
+	const appendedData = checksum === null ? data + '0'.repeat(crcLength) : data + checksum;
+	const bits = appendedData.split('');
+	for (let i = 0; i <= bits.length - divisor.length; i++) {
+		if (bits[i] === '1') {
+			for (let j = 0; j < divisor.length; j++) {
+				bits[i + j] = bits[i + j] === divisor[j] ? '0' : '1';
+			}
+		}
+	}
+	return bits.slice(bits.length - crcLength)
+			   .join('');
+}
+
+function generateRandomDivisor(length) {
+	let divisor = '1';
+	for (let i = 1; i < length - 1; i++) {
+		divisor += Math.random() < 0.5 ? '0' : '1';
+	}
+	divisor += '1';
+	return divisor;
+}
+
+function initCrcPage() {
+	const crcData = document.getElementById('crc-data');
+	const crcDivisorLength = document.getElementById('crc-divisor-length');
+	const crcRandomDivisorButton = document.getElementById('crc-random-divisor');
+	const crcDivisor = document.getElementById('crc-divisor');
+	const crcChecksum = document.getElementById('crc-checksum');
+	const crcCalculateButton = document.getElementById('crc-calculate');
+	const crcVerifyButton = document.getElementById('crc-verify');
+	const crcExtended = document.getElementById('crc-extended');
+	const crcResult = document.getElementById('crc-result');
+	const crcFrame = document.getElementById('crc-frame');
+	const crcVerification = document.getElementById('crc-verification');
+	if (!crcData || !crcDivisorLength || !crcRandomDivisorButton || !crcDivisor || !crcChecksum || !crcCalculateButton || !crcVerifyButton || !crcExtended
+		|| !crcResult || !crcFrame || !crcVerification) {
 		return;
 	}
-	encryptButton.onclick = () => {
-		const text = textInput.value;
-		const shift = Number(shiftInput.value || 13);
-		resultBox.textContent = transformRot(text, shift);
+	crcRandomDivisorButton.onclick = () => {
+		const length = Number(crcDivisorLength.value);
+		if (length < 2) {
+			alert('Długość dzielnika musi być większa od 1.');
+			return;
+		}
+		crcDivisor.value = generateRandomDivisor(length);
 	};
-	decryptButton.onclick = () => {
-		const text = textInput.value;
-		const shift = Number(shiftInput.value || 13);
-		resultBox.textContent = transformRot(text, -shift);
+	crcCalculateButton.onclick = () => {
+		const data = crcData.value.trim();
+		const divisor = crcDivisor.value.trim();
+		if (!isBinary(data) || !isBinary(divisor)) {
+			alert('Dane i dzielnik muszą być binarne.');
+			return;
+		}
+		if (divisor.length < 2 || divisor[0] !== '1') {
+			alert('Niepoprawny dzielnik.');
+			return;
+		}
+		const crc = calculateCRC(data, divisor);
+		const extendedData = data + '0'.repeat(divisor.length - 1);
+		const frame = data + crc;
+		crcExtended.textContent = extendedData;
+		crcResult.textContent = crc;
+		crcFrame.textContent = frame;
+		crcVerification.textContent = '-';
 	};
-	clearButton.onclick = () => {
-		textInput.value = '';
-		resultBox.textContent = '-';
+	crcVerifyButton.onclick = () => {
+		const data = crcData.value.trim();
+		const divisor = crcDivisor.value.trim();
+		const checksum = crcChecksum.value.trim();
+		if (!isBinary(data) || !isBinary(divisor) || !isBinary(checksum)) {
+			alert('Dane muszą być binarne.');
+			return;
+		}
+		if (checksum.length !== divisor.length - 1) {
+			alert('Niepoprawna długość CRC.');
+			return;
+		}
+		const remainder = calculateCRC(data, divisor, checksum);
+		const valid = /^0+$/.test(remainder);
+		crcExtended.textContent = data + checksum;
+		crcResult.textContent = remainder;
+		crcFrame.textContent = data + checksum;
+		crcVerification.textContent = valid ? 'Transmisja poprawna' : 'Wykryto błąd';
 	};
 }

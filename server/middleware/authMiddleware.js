@@ -1,12 +1,5 @@
 const jwtService = require('../services/jwtService');
 
-/**
- * Obsługa komunikatów uwierzytelniania
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
 function authMiddleware(req, res, next) {
 	const authHeader = req.headers.authorization;
 	if (!authHeader) {
@@ -25,8 +18,7 @@ function authMiddleware(req, res, next) {
 				  });
 	}
 	try {
-		const decoded = jwtService.verifyToken(token);
-		req.user = decoded;
+		req.user = jwtService.verifyToken(token);
 		next();
 	} catch (error) {
 		return res.status(401)

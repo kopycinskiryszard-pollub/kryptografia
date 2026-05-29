@@ -15,6 +15,7 @@ const pool = mariadb.createPool({
  * @param sql
  * @param params
  * @returns {Promise<any>}
+ * @param {string} sql
  */
 async function query(sql, params = []) {
 	let connection;

@@ -42,12 +42,12 @@ async function login({
 		error.statusCode = 401;
 		throw error;
 	}
-	if (!user.is_active) {
+	if (!user.isActive) {
 		const error = new Error('Konto użytkownika jest nieaktywne.');
 		error.statusCode = 403;
 		throw error;
 	}
-	const passwordIsValid = await passwordService.verifyPassword(password, user.password_hash);
+	const passwordIsValid = await passwordService.verifyPassword(password, user.isActive);
 	if (!passwordIsValid) {
 		const error = new Error('Nieprawidłowy login lub hasło.');
 		error.statusCode = 401;
@@ -69,7 +69,7 @@ async function login({
 
 async function getProfile(userId) {
 	const user = await userRepository.findPublicById(userId);
-	if (!user || !user.is_active) {
+	if (!user || !user.isActive) {
 		const error = new Error('Użytkownik nie istnieje lub jest nieaktywny.');
 		error.statusCode = 404;
 		throw error;
@@ -78,7 +78,7 @@ async function getProfile(userId) {
 		id: user.id,
 		username: user.username,
 		email: user.email,
-		createdAt: user.created_at
+		createdAt: user.createdAt
 	};
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "Kryptografia",
+  "name": "kryptografia",
   "version": "1.0.0",
   "description": "Server dla zadać z kryptografii",
   "main": "server.js",

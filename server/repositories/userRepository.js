@@ -1,5 +1,28 @@
 const database = require('../config/database');
+/**
+ * @typedef {object} AuthUser
+ * @property {number} id
+ * @property {string} username
+ * @property {string} email
+ * @property {boolean|number} isActive
+ * @property {string} passwordHash
+ * @property {string} hashAlgorithm
+ */
 
+/**
+ * @typedef {object} PublicUser
+ * @property {number} id
+ * @property {string} username
+ * @property {string} email
+ * @property {Date|string} createdAt
+ * @property {boolean|number} isActive
+ */
+/**
+ * Szuka użytkownika po nazwie użytkownika albo adresie e-mail.
+ *
+ * @param {string} login
+ * @returns {Promise<AuthUser|null>}
+ */
 async function findByUsernameOrEmail(login) {
 	const rows = await database.query(`
         SELECT u.id,
@@ -17,13 +40,19 @@ async function findByUsernameOrEmail(login) {
 	return rows[0] || null;
 }
 
+/**
+ * Pobiera publiczne dane użytkownika po identyfikatorze.
+ *
+ * @param {number} userId
+ * @returns {Promise<PublicUser|null>}
+ */
 async function findPublicById(userId) {
 	const rows = await database.query(`
         SELECT id,
                username,
                email,
-               created_at,
-               is_active
+               created_at AS createdAt,
+               is_active  AS isActive
         FROM users
         WHERE id = ?
         LIMIT 1
@@ -31,6 +60,13 @@ async function findPublicById(userId) {
 	return rows[0] || null;
 }
 
+/**
+ * Sprawdza, czy istnieje użytkownik o podanej nazwie lub adresie e-mail.
+ *
+ * @param {string} username
+ * @param {string} email
+ * @returns {Promise<boolean>}
+ */
 async function existsByUsernameOrEmail(username, email) {
 	const rows = await database.query(`
         SELECT id
@@ -42,6 +78,15 @@ async function existsByUsernameOrEmail(username, email) {
 	return rows.length > 0;
 }
 
+/**
+ * Tworzy użytkownika i powiązane dane uwierzytelniające.
+ *
+ * @param {object} userData
+ * @param {string} userData.username
+ * @param {string} userData.email
+ * @param {string} userData.passwordHash
+ * @returns {Promise<{id: number, username: string, email: string}>}
+ */
 async function createUserWithCredentials({
 	username,
 	email,

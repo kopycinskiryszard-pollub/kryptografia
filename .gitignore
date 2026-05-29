@@ -1,3 +1,5 @@
+# Zmienne środowiskowe
 .env
+# IDE
 node_modules/
-.idea
+.idea/

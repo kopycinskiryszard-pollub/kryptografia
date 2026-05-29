@@ -25,8 +25,9 @@ function initLoginPage() {
 				activityTimeoutMs: result.activityTimeoutMs
 			});
 			updateAuthNavigation();
-			showMessage(message, result.message || 'Logowanie zakończone sukcesem.', 'success');
 			form.reset();
+			showMessage(message, result.message || 'Logowanie zakończone sukcesem.', 'success');
+			await delay(1000);
 			window.location.hash = 'home';
 		} catch (error) {
 			const details = error.details?.length ? `<br>${error.details.join('<br>')}` : '';
@@ -83,6 +84,12 @@ function initLogoutButton() {
 	logoutButton.onclick = () => {
 		logout('manual');
 	};
+}
+
+function delay(ms) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
 }
 
 window.addEventListener('DOMContentLoaded', () => {

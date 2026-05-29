@@ -9,6 +9,7 @@ for (const key of requiredEnv) {
 const dbPort = Number(process.env.DB_PORT);
 const appPort = Number(process.env.PORT || 3000);
 const bcryptRounds = Number(process.env.BCRYPT_ROUNDS || 12);
+const authActivityTimeoutMs = Number(process.env.AUTH_ACTIVITY_TIMEOUT_MS || 90000);
 if (!Number.isInteger(dbPort)) {
 	throw new Error('DB_PORT musi być liczbą całkowitą.');
 }
@@ -17,6 +18,9 @@ if (!Number.isInteger(appPort)) {
 }
 if (!Number.isInteger(bcryptRounds)) {
 	throw new Error('BCRYPT_ROUNDS musi być liczbą całkowitą.');
+}
+if (!Number.isInteger(authActivityTimeoutMs)) {
+	throw new Error('AUTH_ACTIVITY_TIMEOUT_MS musi być liczbą całkowitą.');
 }
 const env = {
 	nodeEnv: process.env.NODE_ENV || 'development',
@@ -34,6 +38,9 @@ const env = {
 	},
 	bcrypt: {
 		rounds: bcryptRounds
+	},
+	auth: {
+		activityTimeoutMs: authActivityTimeoutMs
 	}
 };
 module.exports = env;

@@ -8,7 +8,8 @@ const pages = {
 	ciphers: '/pages/ciphers.html',
 	rot13: '/pages/rot13.html',
 	login: '/pages/login.html',
-	register: '/pages/register.html'
+	register: '/pages/register.html',
+	profile: '/pages/profile.html'
 };
 const pageInitializers = {
 	entropy: () => window.initEntropyPage?.(),
@@ -17,7 +18,8 @@ const pageInitializers = {
 	ciphers: () => window.initCryptogramsPage?.(),
 	rot13: () => window.initRot13Page?.(),
 	login: () => window.initLoginPage?.(),
-	register: () => window.initRegisterPage?.()
+	register: () => window.initRegisterPage?.(),
+	profile: () => window.initProfilePage()
 };
 
 async function loadPage(pageName) {

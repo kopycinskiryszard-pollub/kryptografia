@@ -26,7 +26,7 @@
 						type="button">
 					Strona główna
 				</button>
-				<div class="nav-dropdown">
+				<div class="nav-dropdown auth-only">
 					<button class="nav-button dropdown-toggle"
 							type="button">
 						Aplikacje
@@ -51,15 +51,25 @@
 				</div>
 			</div>
 			<div class="nav-right">
-				<button class="nav-button"
+				<button class="nav-button guest-only"
 						data-page="login"
 						type="button">
 					Logowanie
 				</button>
-				<button class="nav-button"
+				<button class="nav-button guest-only"
 						data-page="register"
 						type="button">
 					Rejestracja
+				</button>
+				<button class="nav-button auth-only hidden"
+						data-page="profile"
+						type="button">
+					Profil
+				</button>
+				<button class="nav-button auth-only hidden"
+						id="logout-button"
+						type="button">
+					Wyloguj
 				</button>
 			</div>
 		</nav>
@@ -85,6 +95,7 @@
 <script src="/js-lab/attacks/cryptograms.js"></script>
 <script src="/js-lab/rot13/rot13.js"></script>
 <!-- Główna obsługa UI -->
+<script src="/js/auth/profile.js"></script>
 <script src="/js/ui.js"></script>
 </body>
 </html>

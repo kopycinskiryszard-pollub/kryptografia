@@ -120,9 +120,6 @@ body {
 	color 0.25s;
 	text-wrap: nowrap;
 }
-.nav-button + .nav-button {
-	border-left: none;
-}
 .nav-button:hover {
 	background-color: var(--color-dark);
 	color: var(--white-white);
@@ -130,6 +127,9 @@ body {
 .nav-button.active {
 	background-color: var(--white-white);
 	color: var(--dark-dark);
+}
+.hidden {
+	display: none !important;
 }
 /* MAIN */
 .app-main {

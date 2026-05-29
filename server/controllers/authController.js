@@ -1,4 +1,5 @@
 const authService = require('../services/authService');
+const env = require('../config/env');
 
 async function register(req, res, next) {
 	try {
@@ -22,6 +23,7 @@ async function login(req, res, next) {
 					  success: true,
 					  message: 'Logowanie zakończone sukcesem.',
 					  token: result.token,
+					  activityTimeoutMs: env.auth.activityTimeoutMs,
 					  user: result.user
 				  });
 	} catch (error) {

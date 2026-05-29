@@ -1,3 +1,17 @@
+/**
+ *
+ * @type {{token: string, user: string, lastActivityAt: string, activityTimeoutMs: string}}
+ */
+const authStorageKeys = {
+	token: 'jwtToken',
+	user: 'authUser',
+	lastActivityAt: 'authLastActivityAt',
+	activityTimeoutMs: 'authActivityTimeoutMs'
+};
+/**
+ *
+ * @type {{register({username: *, email: *, password: *}): Promise<any>, login({login: *, password: *}): Promise<any>, getProfile(): Promise<any>}}
+ */
 const authApi = {
 	async register({
 		username,
@@ -34,7 +48,7 @@ const authApi = {
 		return parseJsonResponse(response);
 	},
 	async getProfile() {
-		const token = localStorage.getItem('jwtToken');
+		const token = authSession.getToken();
 		const response = await fetch('/api/auth/profile', {
 			method: 'GET',
 			headers: {
@@ -44,7 +58,68 @@ const authApi = {
 		return parseJsonResponse(response);
 	}
 };
+/**
+ *
+ * @type {{save({token: *, user: *, activityTimeoutMs: *}): void, clear(): void, getToken(): string, getUser(): (null|any|undefined), isLoggedIn(): boolean, touch(): void, isExpiredByInactivity(): boolean}}
+ */
+const authSession = {
+	save({
+		token,
+		user,
+		activityTimeoutMs
+	}) {
+		localStorage.setItem(authStorageKeys.token, token);
+		localStorage.setItem(authStorageKeys.user, JSON.stringify(user));
+		localStorage.setItem(authStorageKeys.activityTimeoutMs, String(activityTimeoutMs || 900000));
+		this.touch();
+	},
+	clear() {
+		localStorage.removeItem(authStorageKeys.token);
+		localStorage.removeItem(authStorageKeys.user);
+		localStorage.removeItem(authStorageKeys.lastActivityAt);
+		localStorage.removeItem(authStorageKeys.activityTimeoutMs);
+	},
+	getToken() {
+		return localStorage.getItem(authStorageKeys.token);
+	},
+	getUser() {
+		const rawUser = localStorage.getItem(authStorageKeys.user);
+		if (!rawUser) {
+			return null;
+		}
+		try {
+			return JSON.parse(rawUser);
+		} catch (error) {
+			return null;
+		}
+	},
+	isLoggedIn() {
+		return Boolean(this.getToken());
+	},
+	touch() {
+		if (this.isLoggedIn()) {
+			localStorage.setItem(authStorageKeys.lastActivityAt, String(Date.now()));
+		}
+	},
+	isExpiredByInactivity() {
+		const token = this.getToken();
+		if (!token) {
+			return false;
+		}
+		const lastActivityAt = Number(localStorage.getItem(authStorageKeys.lastActivityAt) || 0);
+		const activityTimeoutMs = Number(localStorage.getItem(authStorageKeys.activityTimeoutMs) || 900000);
+		if (!lastActivityAt) {
+			return false;
+		}
+		return Date.now() - lastActivityAt > activityTimeoutMs;
+	}
+};
 
+/**
+ *
+ * @param response
+ * @returns {Promise<any>}
+ */
 async function parseJsonResponse(response) {
 	const data = await response.json()
 							   .catch(() => (

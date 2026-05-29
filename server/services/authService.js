@@ -2,6 +2,13 @@ const userRepository = require('../repositories/userRepository');
 const passwordService = require('./passwordService');
 const jwtService = require('./jwtService');
 
+/**
+ *
+ * @param username
+ * @param email
+ * @param password
+ * @returns {Promise<{id: number, username: string, email: string}>}
+ */
 async function register({
 	username,
 	email,
@@ -29,6 +36,13 @@ async function register({
 	};
 }
 
+/**
+ *
+ * @param login
+ * @param username
+ * @param password
+ * @returns {Promise<{token: *, user: {id: number, username: string, email: string}}>}
+ */
 async function login({
 	login,
 	username,
@@ -67,6 +81,11 @@ async function login({
 	};
 }
 
+/**
+ *
+ * @param userId
+ * @returns {Promise<{id: number, username: string, email: string, createdAt: Date|string}>}
+ */
 async function getProfile(userId) {
 	const user = await userRepository.findPublicById(userId);
 	if (!user || !user.isActive) {
@@ -74,6 +93,7 @@ async function getProfile(userId) {
 		error.statusCode = 404;
 		throw error;
 	}
+	const usernameHash = await passwordService.hashPassword(user.username);
 	return {
 		id: user.id,
 		username: user.username,

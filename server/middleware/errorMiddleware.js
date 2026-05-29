@@ -1,3 +1,11 @@
+/**
+ * Obsługa pośrednia błędów
+ * @param error
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 function errorMiddleware(error, req, res, next) {
 	const statusCode = error.statusCode || 500;
 	if (statusCode === 500) {

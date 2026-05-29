@@ -1,3 +1,6 @@
+/**
+ * Inicjalizacja strony rejestracji nowego użytkownika
+ */
 function initRegisterPage() {
 	const form = document.getElementById('register-form');
 	const message = document.getElementById('register-message');

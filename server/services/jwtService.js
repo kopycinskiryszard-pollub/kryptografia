@@ -1,6 +1,11 @@
 const jwt = require('jsonwebtoken');
 const env = require('../config/env');
 
+/**
+ * Wygenerowanie nowego tokenu
+ * @param user
+ * @returns {*}
+ */
 function generateToken(user) {
 	return jwt.sign({
 		userId: user.id,
@@ -10,6 +15,11 @@ function generateToken(user) {
 	});
 }
 
+/**
+ * Sprawdzenia czy token jest poprawny
+ * @param token
+ * @returns {*}
+ */
 function verifyToken(token) {
 	return jwt.verify(token, env.jwt.secret);
 }

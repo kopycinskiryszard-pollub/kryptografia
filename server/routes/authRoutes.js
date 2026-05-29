@@ -7,6 +7,9 @@ const {
 	validateLoginData
 } = require('../validators/authValidators');
 const router = express.Router();
+/**
+ * Ścieżki dla API
+ */
 router.post('/register', validateRequest(validateRegisterData), authController.register);
 router.post('/login', validateRequest(validateLoginData), authController.login);
 router.get('/profile', authMiddleware, authController.profile);

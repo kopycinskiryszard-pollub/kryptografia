@@ -23,7 +23,7 @@ const pageInitializers = {
 };
 
 /**
- *
+ * Ładowanie podstrony i jej elementów. Wstawienie do <main> na stronie głównej
  * @param pageName
  * @returns {Promise<void>}
  */
@@ -48,7 +48,7 @@ async function loadPage(pageName) {
 }
 
 /**
- *
+ * Start inicjalizacji podstrony
  * @param pageName
  */
 function initializePage(pageName) {
@@ -59,7 +59,7 @@ function initializePage(pageName) {
 }
 
 /**
- *
+ * Oznaczanie aktywnej strony w pasku nawigacji
  * @param pageName
  */
 function setActiveButton(pageName) {
@@ -74,7 +74,7 @@ function setActiveButton(pageName) {
 }
 
 /**
- *
+ * Formatowanie nazwy podstrony. Usuwa #
  * @param pageName
  */
 function updateHash(pageName) {
@@ -85,7 +85,7 @@ function updateHash(pageName) {
 }
 
 /**
- *
+ * Wyświetlania błędu ładowania podstrony
  */
 function renderLoadError() {
 	app.innerHTML = `
@@ -97,7 +97,7 @@ function renderLoadError() {
 }
 
 /**
- *
+ * Ogólna funkcja wyświetlania komunikatów na stronie
  * @param element
  * @param text
  * @param type
@@ -111,7 +111,7 @@ function showMessage(element, text, type = 'info') {
 }
 
 /**
- *
+ * Inicjalizacja zegarka w nagłówku
  */
 function initHeaderDateTime() {
 	updateHeaderDateTime();
@@ -119,7 +119,7 @@ function initHeaderDateTime() {
 }
 
 /**
- *
+ * Wyświetlanie zegarka
  */
 function updateHeaderDateTime() {
 	const dateElement = document.getElementById('current-date');

@@ -1,7 +1,7 @@
 const authRegex = require('./sharedRegex');
 
 /**
- * Walidacja rejestracji
+ * Walidacja danych rejestracji
  * @param data
  * @returns {string[]|*[]}
  */
@@ -28,7 +28,7 @@ function validateRegisterData(data) {
 }
 
 /**
- * Walidacja logowania
+ * Walidacja danych logowania
  * @param data
  * @returns {string[]|*[]}
  */

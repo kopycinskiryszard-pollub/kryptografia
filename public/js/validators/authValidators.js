@@ -4,6 +4,13 @@ const authRegex = {
 	password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[@#$%^&*()=+-_?]).{8,72}$/
 };
 
+/**
+ * Podstawowa walidacja danych z formy rejestracji
+ * @param username
+ * @param email
+ * @param password
+ * @returns {*[]}
+ */
 function validateRegisterForm({
 	username,
 	email,
@@ -22,6 +29,12 @@ function validateRegisterForm({
 	return errors;
 }
 
+/**
+ * Podstawowa walidacja danych z formy rejestracji
+ * @param login
+ * @param password
+ * @returns {*[]}
+ */
 function validateLoginForm({
 	login,
 	password

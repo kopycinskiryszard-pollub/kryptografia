@@ -1,5 +1,5 @@
 /**
- *
+ * Dane zalogowanego
  * @type {{token: string, user: string, lastActivityAt: string, activityTimeoutMs: string}}
  */
 const authStorageKeys = {
@@ -9,7 +9,7 @@ const authStorageKeys = {
 	activityTimeoutMs: 'authActivityTimeoutMs'
 };
 /**
- *
+ * Obsługa zadań autoryzacji
  * @type {{register({username: *, email: *, password: *}): Promise<any>, login({login: *, password: *}): Promise<any>, getProfile(): Promise<any>}}
  */
 const authApi = {
@@ -59,7 +59,7 @@ const authApi = {
 	}
 };
 /**
- *
+ * Obsługa sesji zalogowanego użytkownika
  * @type {{save({token: *, user: *, activityTimeoutMs: *}): void, clear(): void, getToken(): string, getUser(): (null|any|undefined), isLoggedIn(): boolean, touch(): void, isExpiredByInactivity(): boolean}}
  */
 const authSession = {
@@ -116,7 +116,7 @@ const authSession = {
 };
 
 /**
- *
+ * Analiza odpowiedzi serwera
  * @param response
  * @returns {Promise<any>}
  */

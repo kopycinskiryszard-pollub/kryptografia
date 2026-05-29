@@ -28,77 +28,190 @@ function rot13(text) {
  *
  */
 function initRot13Page() {
+	initRot13TextSection();
+	initRot13FileSection();
+}
+
+/**
+ *
+ */
+function initRot13TextSection() {
 	const textInput = document.getElementById('rot13-text');
-	const fileInput = document.getElementById('rot13-file');
 	const transformButton = document.getElementById('rot13-transform');
-	const loadFileButton = document.getElementById('rot13-load-file');
-	const downloadButton = document.getElementById('rot13-download-result');
 	const copyButton = document.getElementById('rot13-copy-result');
 	const clearButton = document.getElementById('rot13-clear');
 	const resultElement = document.getElementById('rot13-result');
-	const fileInfoElement = document.getElementById('rot13-file-info');
-	if (!textInput || !fileInput || !transformButton || !loadFileButton || !downloadButton || !copyButton || !clearButton || !resultElement
-		|| !fileInfoElement) {
+	const decodedResultElement = document.getElementById('rot13-decoded-result');
+	if (!textInput || !transformButton || !copyButton || !clearButton || !resultElement || !decodedResultElement) {
 		return;
 	}
-	let loadedFileName = 'rot13-result.txt';
 	transformButton.onclick = () => {
-		const inputText = textInput.value;
-		const transformedText = rot13(inputText);
-		resultElement.textContent = transformedText || '-';
-	};
-	loadFileButton.onclick = () => {
-		const file = fileInput.files[0];
-		if (!file) {
-			showRot13FileInfo(fileInfoElement, 'Nie wybrano pliku.', 'error');
-			return;
-		}
-		if (!isTextFile(file)) {
-			showRot13FileInfo(fileInfoElement, 'Nieprawidłowy typ pliku. Wybierz plik .txt.', 'error');
-			return;
-		}
-		loadedFileName = createOutputFileName(file.name);
-		const reader = new FileReader();
-		reader.onload = () => {
-			const fileContent = String(reader.result || '');
-			const transformedText = rot13(fileContent);
-			textInput.value = fileContent;
-			resultElement.textContent = transformedText || '-';
-			showRot13FileInfo(fileInfoElement, `Wczytano plik: ${file.name}`, 'success');
-		};
-		reader.onerror = () => {
-			showRot13FileInfo(fileInfoElement, 'Nie udało się odczytać pliku.', 'error');
-		};
-		reader.readAsText(file, 'UTF-8');
-	};
-	downloadButton.onclick = () => {
-		const resultText = resultElement.textContent;
-		if (!resultText || resultText === '-') {
-			showRot13FileInfo(fileInfoElement, 'Brak wyniku do zapisania.', 'error');
-			return;
-		}
-		downloadTextFile(resultText, loadedFileName);
+		transformTextInput({
+			textInput,
+			resultElement,
+			decodedResultElement
+		});
 	};
 	copyButton.onclick = async () => {
-		const resultText = resultElement.textContent;
-		if (!resultText || resultText === '-') {
-			showRot13FileInfo(fileInfoElement, 'Brak wyniku do skopiowania.', 'error');
-			return;
-		}
-		try {
-			await navigator.clipboard.writeText(resultText);
-			showRot13FileInfo(fileInfoElement, 'Wynik skopiowano do schowka.', 'success');
-		} catch (error) {
-			showRot13FileInfo(fileInfoElement, 'Nie udało się skopiować wyniku.', 'error');
-		}
+		await copyRot13Result(resultElement);
 	};
 	clearButton.onclick = () => {
-		textInput.value = '';
-		fileInput.value = '';
-		resultElement.textContent = '-';
-		loadedFileName = 'rot13-result.txt';
-		showRot13FileInfo(fileInfoElement, 'Nie wybrano pliku.', 'info');
+		clearTextSection({
+			textInput,
+			resultElement,
+			decodedResultElement
+		});
 	};
+}
+
+/**
+ *
+ */
+function initRot13FileSection() {
+	const fileInput = document.getElementById('rot13-file');
+	const loadFileButton = document.getElementById('rot13-load-file');
+	const downloadButton = document.getElementById('rot13-download-result');
+	const fileInfoElement = document.getElementById('rot13-file-info');
+	const textInput = document.getElementById('rot13-text');
+	const resultElement = document.getElementById('rot13-result');
+	const decodedResultElement = document.getElementById('rot13-decoded-result');
+	if (!fileInput || !loadFileButton || !downloadButton || !fileInfoElement || !textInput || !resultElement || !decodedResultElement) {
+		return;
+	}
+	let outputFileName = 'rot13-result.txt';
+	loadFileButton.onclick = () => {
+		handleRot13FileLoad({
+			fileInput,
+			fileInfoElement,
+			textInput,
+			resultElement,
+			decodedResultElement,
+			setOutputFileName: (fileName) => {
+				outputFileName = fileName;
+			}
+		});
+	};
+	downloadButton.onclick = () => {
+		handleRot13FileDownload({
+			resultElement,
+			fileInfoElement,
+			outputFileName
+		});
+	};
+}
+
+/**
+ *
+ * @param textInput
+ * @param resultElement
+ * @param decodedResultElement
+ */
+function transformTextInput({
+	textInput,
+	resultElement,
+	decodedResultElement
+}) {
+	const inputText = textInput.value;
+	const transformedText = rot13(inputText);
+	const decodedText = rot13(transformedText);
+	resultElement.textContent = transformedText || '-';
+	decodedResultElement.textContent = decodedText || '-';
+}
+
+/**
+ *
+ * @param textInput
+ * @param resultElement
+ * @param decodedResultElement
+ */
+function clearTextSection({
+	textInput,
+	resultElement,
+	decodedResultElement
+}) {
+	textInput.value = '';
+	resultElement.textContent = '-';
+	decodedResultElement.textContent = '-';
+}
+
+/**
+ *
+ * @param resultElement
+ * @returns {Promise<void>}
+ */
+async function copyRot13Result(resultElement) {
+	const resultText = resultElement.textContent;
+	if (!resultText || resultText === '-') {
+		return;
+	}
+	try {
+		await navigator.clipboard.writeText(resultText);
+	} catch (error) {
+		console.error('Nie udało się skopiować wyniku ROT13.', error);
+	}
+}
+
+/**
+ *
+ * @param fileInput
+ * @param fileInfoElement
+ * @param textInput
+ * @param resultElement
+ * @param decodedResultElement
+ * @param setOutputFileName
+ */
+function handleRot13FileLoad({
+	fileInput,
+	fileInfoElement,
+	textInput,
+	resultElement,
+	decodedResultElement,
+	setOutputFileName
+}) {
+	const file = fileInput.files[0];
+	if (!file) {
+		showRot13FileInfo(fileInfoElement, 'Nie wybrano pliku.', 'error');
+		return;
+	}
+	if (!isTextFile(file)) {
+		showRot13FileInfo(fileInfoElement, 'Nieprawidłowy typ pliku. Wybierz plik .txt.', 'error');
+		return;
+	}
+	setOutputFileName(createOutputFileName(file.name));
+	const reader = new FileReader();
+	reader.onload = () => {
+		const fileContent = String(reader.result || '');
+		const transformedText = rot13(fileContent);
+		const decodedText = rot13(transformedText);
+		textInput.value = fileContent;
+		resultElement.textContent = transformedText || '-';
+		decodedResultElement.textContent = decodedText || '-';
+		showRot13FileInfo(fileInfoElement, `Wczytano plik: ${file.name}`, 'success');
+	};
+	reader.onerror = () => {
+		showRot13FileInfo(fileInfoElement, 'Nie udało się odczytać pliku.', 'error');
+	};
+	reader.readAsText(file, 'UTF-8');
+}
+
+/**
+ *
+ * @param resultElement
+ * @param fileInfoElement
+ * @param outputFileName
+ */
+function handleRot13FileDownload({
+	resultElement,
+	fileInfoElement,
+	outputFileName
+}) {
+	const resultText = resultElement.textContent;
+	if (!resultText || resultText === '-') {
+		showRot13FileInfo(fileInfoElement, 'Brak wyniku do zapisania.', 'error');
+		return;
+	}
+	downloadTextFile(resultText, outputFileName);
+	showRot13FileInfo(fileInfoElement, `Zapisano wynik jako: ${outputFileName}`, 'success');
 }
 
 /**
@@ -141,6 +254,12 @@ function downloadTextFile(content, fileName) {
 	URL.revokeObjectURL(url);
 }
 
+/**
+ *
+ * @param element
+ * @param message
+ * @param type
+ */
 function showRot13FileInfo(element, message, type = 'info') {
 	element.textContent = message;
 	element.className = `message message-${type}`;

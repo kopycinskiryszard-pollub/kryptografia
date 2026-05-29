@@ -1,3 +1,8 @@
+/**
+ * Sprawdzenie pośrednie poprawności zapytania do serwera
+ * @param validator
+ * @returns {(function(*, *, *): (*|undefined))|*}
+ */
 function validateRequest(validator) {
 	return (req, res, next) => {
 		const errors = validator(req.body);

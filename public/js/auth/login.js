@@ -1,3 +1,6 @@
+/**
+ * Inicjalizacja strony logowania
+ */
 function initLoginPage() {
 	const form = document.getElementById('login-form');
 	const message = document.getElementById('login-message');
@@ -38,6 +41,10 @@ function initLoginPage() {
 
 let inactivityIntervalId = null;
 
+/**
+ * Wylogowanie
+ * @param reason
+ */
 function logout(reason = 'manual') {
 	authSession.clear();
 	updateAuthNavigation();
@@ -47,6 +54,9 @@ function logout(reason = 'manual') {
 	window.location.hash = 'home';
 }
 
+/**
+ * Zmiana układu paska nawigacji po zalogowaniu/wylogowaniu
+ */
 function updateAuthNavigation() {
 	const isLoggedIn = authSession.isLoggedIn();
 	document.querySelectorAll('.auth-only')
@@ -59,6 +69,9 @@ function updateAuthNavigation() {
 			});
 }
 
+/**
+ * Automatycznie wylogowanie przy bezczynności
+ */
 function startInactivityWatcher() {
 	if (inactivityIntervalId) {
 		clearInterval(inactivityIntervalId);
@@ -76,6 +89,9 @@ function startInactivityWatcher() {
 	}, 10000);
 }
 
+/**
+ * Reczne wylogowanie
+ */
 function initLogoutButton() {
 	const logoutButton = document.getElementById('logout-button');
 	if (!logoutButton) {
@@ -86,6 +102,11 @@ function initLogoutButton() {
 	};
 }
 
+/**
+ * Dodatkowa funkcja do tworzenia pauzy
+ * @param ms
+ * @returns {Promise<unknown>}
+ */
 function delay(ms) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);

@@ -3,7 +3,7 @@ const passwordService = require('./passwordService');
 const jwtService = require('./jwtService');
 
 /**
- *
+ * Rejestracja użytkownika
  * @param username
  * @param email
  * @param password
@@ -37,7 +37,7 @@ async function register({
 }
 
 /**
- *
+ * Logowanie użytkownika
  * @param login
  * @param username
  * @param password
@@ -82,7 +82,7 @@ async function login({
 }
 
 /**
- *
+ * Pobieranie danych profilu
  * @param userId
  * @returns {Promise<{id: number, username: string, email: string, createdAt: Date|string}>}
  */

@@ -1,5 +1,12 @@
 const jwtService = require('../services/jwtService');
 
+/**
+ * Pośrednia obsługa żądania autoryzacji
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 function authMiddleware(req, res, next) {
 	const authHeader = req.headers.authorization;
 	if (!authHeader) {

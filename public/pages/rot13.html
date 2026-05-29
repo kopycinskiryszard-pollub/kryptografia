@@ -19,6 +19,10 @@
 						type="button">Wyczyść
 				</button>
 			</div>
+			<div class="result-box">
+				<p>Wynik ROT13: <strong id="rot13-result">-</strong></p>
+				<p>Ponowny ROT13: <strong id="rot13-decoded-result">-</strong></p>
+			</div>
 		</div>
 		<div class="app-section">
 			<h3>Obsługa pliku .txt</h3>
@@ -30,7 +34,7 @@
 			</div>
 			<div class="button-row">
 				<button id="rot13-load-file"
-						type="button">Wczytaj plik
+						type="button">Wczytaj plik i wykonaj ROT13
 				</button>
 				<button id="rot13-download-result"
 						type="button">Pobierz wynik jako plik
@@ -40,9 +44,6 @@
 			   id="rot13-file-info">
 				Nie wybrano pliku.
 			</p>
-		</div>
-		<div class="result-box">
-			<p>Wynik ROT13: <strong id="rot13-result">-</strong></p>
 		</div>
 	</div>
 </section>

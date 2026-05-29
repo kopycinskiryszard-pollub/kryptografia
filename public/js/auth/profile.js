@@ -1,8 +1,8 @@
 /**
- *
+ * Inicjalizacja strony profilu użytkownika
  * @returns {Promise<void>}
  */
-function initProfilePage() {
+async function initProfilePage() {
 	const message = document.getElementById('profile-message');
 	const profileData = document.getElementById('profile-data');
 	const usernameElement = document.getElementById('profile-username');
@@ -16,7 +16,7 @@ function initProfilePage() {
 		profileData.classList.add('hidden');
 		return;
 	}
-	loadProfileData({
+	await loadProfileData({
 		message,
 		profileData,
 		usernameElement,
@@ -26,7 +26,7 @@ function initProfilePage() {
 }
 
 /**
- *
+ * Ładowanie danych użytkownika
  * @param message
  * @param profileData
  * @param usernameElement
@@ -63,7 +63,7 @@ async function loadProfileData({
 }
 
 /**
- *
+ * Formatowanie daty i czasu
  * @param value
  * @returns {string}
  */
